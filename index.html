@@ -29,12 +29,26 @@
     .card{flex:1 1 520px;min-width:280px;background:var(--panel);border:1px solid #e5e7eb;border-left:6px solid var(--brand);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);}
     .scroller{display:flex;gap:10px;padding:8px;border:1px solid var(--ring);background:rgba(255,255,255,.85);border-radius:14px;overflow:auto;}
     .mini{min-width:280px;background:#fff;border:1px solid #e5e7eb;border-left:4px solid var(--brand);border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(2,6,23,.06);}
-    /* 篩選 tabs（純 CSS，無 JS） */
+    
+    /* 篩選 tabs (純 CSS，無 JS) */
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 14px;}
-    .tabs input{position:absolute;opacity:0;}
     .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;}
-    .tabs input:checked+label{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:0 4px 14px rgba(20,184,166,.25);}
-    /* 篩選顯示邏輯 */
+    
+    /* 【修正】隱藏 radio buttons (移到 .tabs 之外) */
+    .tabs-input{position:absolute;opacity:0;}
+    
+    /* 【修正】選中標籤的樣式 (改用 ~ 選擇器) */
+    #tab-all:checked ~ .tabs label[for="tab-all"],
+    #tab-family:checked ~ .tabs label[for="tab-family"],
+    #tab-exhibit:checked ~ .tabs label[for="tab-exhibit"],
+    #tab-market:checked ~ .tabs label[for="tab-market"] {
+      background:var(--brand);
+      color:#fff;
+      border-color:var(--brand);
+      box-shadow:0 4px 14px rgba(20,184,166,.25);
+    }
+
+    /* 篩選顯示邏輯 (此邏輯現在可正確運作) */
     [data-scope] .card{display:block;}
     #tab-all:checked ~ [data-scope] .card{display:block;}
     #tab-family:checked ~ [data-scope] .card{display:none;}
@@ -43,9 +57,11 @@
     #tab-exhibit:checked ~ [data-scope] .card[data-cat*="展覽"]{display:block;}
     #tab-market:checked ~ [data-scope] .card{display:none;}
     #tab-market:checked ~ [data-scope] .card[data-cat*="市集"]{display:block;}
+    
     /* 浮動回到全部 */
     .reset{position:fixed;right:16px;bottom:16px;z-index:3;}
     .reset label{background:var(--brand);color:#fff;border-radius:999px;padding:10px 12px;font-size:13px;cursor:pointer;box-shadow:0 10px 24px rgba(20,184,166,.28);}
+    
     /* 背景圖層 */
     .bg{
       position:absolute;inset:0;
@@ -60,6 +76,14 @@
         linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)),
         url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256');}
     }
+    
+    /* 【提醒】地圖連結需要更新 */
+    a.link[href^="http://googleusercontent.com/maps.google.com/"]::after {
+      content: ' (需更新)';
+      color: red;
+      font-size: 10px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -67,13 +91,32 @@
     <div class="bg" aria-hidden="true"></div>
 
     <div class="wrap">
-      <!-- 標題列 -->
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
         <h1 style="margin:0;font-size:26px;letter-spacing:.3px;">雲林近期活動</h1>
         <span style="font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid var(--ring);border-radius:999px;background:var(--brand-50);">依開始日期（最早→最晚）</span>
       </div>
 
-      <!-- 這週快看 -->
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin:18px 0 2px;background:rgba(255,255,255,.90);border:1px dashed #a7f3d0;border-radius:14px;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-weight:600;margin-bottom:4px;">「雲林地區活動、美食、景點」LINE 社群</div>
+          <div style="font-size:13px;color:var(--muted);">點擊加入：</div>
+          <div style="margin-top:6px;">
+            <a href="https://line.me/ti/g2/6dt82ZqPrVK_MlZc5BQ0YG1Ksb5ZtIqH4AkyBQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
+               target="_blank" rel="noopener"
+               style="display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;box-shadow:0 6px 16px rgba(20,184,166,.25);">加入 LINE 社群 ↗</a>
+          </div>
+        </div>
+        <img alt="LINE 社群 QR" src="https://i.meee.com.tw/zV4qoCL.jpg" style="width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover;">
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
+        <a href="https://www.facebook.com/yunlinbpk/photos" target="_blank" rel="noopener"
+           style="display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(255,255,255,.9);border:1px solid #e5e7eb;border-radius:12px;padding:8px 10px;">
+          <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256"
+               alt="雲林背包客" style="width:56px;height:56px;border-radius:10px;object-fit:cover;">
+          <span style="font-size:14px;color:#111827;">追蹤「雲林背包客」更多在地美照與活動</span>
+        </a>
+      </div>
       <div style="display:flex;align-items:center;gap:10px;margin:8px 0 6px;">
         <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">這週快看</span>
         <small style="color:var(--muted);">最接近的一週活動精選</small>
@@ -86,7 +129,6 @@
         <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/26</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－臺灣特技團（斗南 田徑場）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/4HaqQh8ewM7XMfsm7" target="_blank">地圖</a></div></div>
       </div>
 
-      <!-- 本月焦點 -->
       <div style="display:flex;align-items:center;gap:10px;margin:14px 0 6px;">
         <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">本月焦點</span>
         <small style="color:var(--muted);">10 月的重要活動</small>
@@ -98,7 +140,6 @@
         <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/10–12/21</span><a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a></div><div class="h" style="font-size:15px;">《聖道流光：霹靂傳奇群像》</div><div class="meta" style="font-size:13px;">虎尾 布袋戲館 ｜ <a class="link" href="https://maps.google.com/?q=%E9%9B%B2%E6%9E%97%E5%B8%83%E8%A2%8B%E6%88%B2%E9%A4%A8" target="_blank">地圖</a></div></div>
       </div>
 
-      <!-- 下月預告（11 月上旬） -->
       <div style="display:flex;align-items:center;gap:10px;margin:14px 0 6px;">
         <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">下月預告</span>
         <small style="color:var(--muted);">11 月上旬重點活動</small>
@@ -112,15 +153,18 @@
         <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/15</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－壞鞋子舞蹈劇場（古坑 中洲玄武宮）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/QcRqsaf21WjxcMbz8" target="_blank">地圖</a></div></div>
       </div>
 
-      <!-- 類別篩選 -->
+      <input type="radio" name="cats" id="tab-all" checked class="tabs-input">
+      <input type="radio" name="cats" id="tab-family" class="tabs-input">
+      <input type="radio" name="cats" id="tab-exhibit" class="tabs-input">
+      <input type="radio" name="cats" id="tab-market" class="tabs-input">
+      
       <div class="tabs">
-        <input type="radio" name="cats" id="tab-all" checked><label for="tab-all">全部</label>
-        <input type="radio" name="cats" id="tab-family"><label for="tab-family">親子</label>
-        <input type="radio" name="cats" id="tab-exhibit"><label for="tab-exhibit">展覽</label>
-        <input type="radio" name="cats" id="tab-market"><label for="tab-market">市集</label>
+        <label for="tab-all">全部</label>
+        <label for="tab-family">親子</label>
+        <label for="tab-exhibit">展覽</label>
+        <label for="tab-market">市集</label>
       </div>
 
-      <!-- 完整清單（依日期遞增；含你 Google 文件與原本清單） -->
       <div class="grid" data-scope>
         <div class="card" data-cat="市集 親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">09/08–11/30</span><a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a></div><div class="h">2025「雲林 100 亮點」行銷 × 尋寶趣</div><div class="meta"><div><strong>地區</strong>：全縣（多點位）</div><div><strong>時間</strong>：依各店家公告</div><div><strong>地圖</strong>：<a class="link" href="https://maps.google.com/?q=%E9%9B%B2%E6%9E%97" target="_blank">Google 地圖</a></div></div><div><span class="tag">市集</span><span class="tag">親子</span></div></div>
         <div class="card" data-cat="展覽"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">09/13–11/05</span><a class="link" href="https://news.st-media.com.tw/news/53543" target="_blank">活動頁 ↗</a></div><div class="h">《窯望山中》林文嶽陶藝創作展</div><div class="meta"><div><strong>地區</strong>：北港（文化中心）</div><div><strong>時間</strong>：09:00–17:00（週一休）</div><div><strong>地圖</strong>：<a class="link" href="https://maps.google.com/?q=%E5%8C%97%E6%B8%AF%E6%96%87%E5%8C%96%E4%B8%AD%E5%BF%83" target="_blank">Google 地圖</a></div></div><div><span class="tag">展覽</span></div></div>
@@ -143,33 +187,7 @@
         <div class="card" data-cat="展覽 親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">11/14</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank">活動頁 ↗</a></div><div class="h">藝術宅急便－壞鞋子舞蹈劇場（大埤 三山國王廟）</div><div class="meta"><strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/G5gQCR3HM2xaidf86" target="_blank">Google 地圖</a></div><div><span class="tag">展覽</span></div></div>
         <div class="card" data-cat="展覽 親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">11/15</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank">活動頁 ↗</a></div><div class="h">藝術宅急便－壞鞋子舞蹈劇場（古坑 中洲玄武宮）</div><div class="meta"><strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/QcRqsaf21WjxcMbz8" target="_blank">Google 地圖</a></div><div><span class="tag">展覽</span></div></div>
       </div>
-
-      <!-- 社群宣傳＋QR -->
-      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin:18px 0 2px;background:rgba(255,255,255,.90);border:1px dashed #a7f3d0;border-radius:14px;">
-        <div style="flex:1;min-width:200px;">
-          <div style="font-weight:600;margin-bottom:4px;">「雲林地區活動、美食、景點」LINE 社群</div>
-          <div style="font-size:13px;color:var(--muted);">點擊加入：</div>
-          <div style="margin-top:6px;">
-            <a href="https://line.me/ti/g2/6dt82ZqPrVK_MlZc5BQ0YG1Ksb5ZtIqH4AkyBQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
-               target="_blank" rel="noopener"
-               style="display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;box-shadow:0 6px 16px rgba(20,184,166,.25);">加入 LINE 社群 ↗</a>
-          </div>
-        </div>
-        <!-- 請把 QR 檔案命名為 qr.png 放在同一層 -->
-        <img alt="LINE 社群 QR" src="qr.png" style="width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover;">
-      </div>
-
-      <!-- 雲林背包客 小卡 -->
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
-        <a href="https://www.facebook.com/yunlinbpk/photos" target="_blank" rel="noopener"
-           style="display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(255,255,255,.9);border:1px solid #e5e7eb;border-radius:12px;padding:8px 10px;">
-          <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256"
-               alt="雲林背包客" style="width:56px;height:56px;border-radius:10px;object-fit:cover;">
-          <span style="font-size:14px;color:#111827;">追蹤「雲林背包客」更多在地美照與活動</span>
-        </a>
-      </div>
-
-      <!-- 右下角：回到全部（清除篩選） -->
+      
       <div class="reset"><label for="tab-all" title="清除篩選，顯示全部">回到全部</label></div>
     </div>
   </section>
