@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>雲林活動資訊</title>
+  <title>雲林近期活動</title>
   <meta name="description" content="雲林近期活動整理：親子、展覽、市集。含這週快看、本月焦點、下月上旬預告。">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <style>
@@ -26,18 +26,37 @@
     .meta{font-size:14px;color:#374151;line-height:1.5;}
     .tag{font-size:11px;padding:2px 8px;border-radius:999px;background:#f0fdf4;border:1px solid #bbf7d0;color:#065f46;margin-right:6px}
     .grid{display:flex;flex-wrap:wrap;gap:14px;}
-    .card{flex:1 1 520px;min-width:280px;background:var(--panel);border:1px solid #e5e7eb;border-left:6px solid var(--brand);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);}
+    
+    /* ---
+    ▼▼▼【卡片設計已更新】▼▼▼
+    ---
+    */
+    .card{
+      flex:1 1 520px;min-width:280px;background:var(--panel);border:1px solid #e5e7eb;border-left:6px solid var(--brand);
+      border-radius:14px;
+      padding: 0; /* (修改) 移除內距，由 content wrapper 處理 */
+      box-shadow:var(--shadow);
+      overflow: hidden; /* (新增) 裁切圖片邊角 */
+    }
+    .card-img {
+      width: 100%;
+      height: 220px; /* 您可以調整這個高度 */
+      object-fit: cover; /* 圖片會被裁切，不會變形 */
+      display: block;
+      border-bottom: 1px solid #e5e7eb; /* 圖片和文字間的分隔線 */
+    }
+    .card-content {
+      padding: 14px 16px; /* (新增) 放置文字內容的容器 */
+    }
+    /* --- (卡片設計更新結束) --- */
+    
     .scroller{display:flex;gap:10px;padding:8px;border:1px solid var(--ring);background:rgba(255,255,255,.85);border-radius:14px;overflow:auto;}
     .mini{min-width:280px;background:#fff;border:1px solid #e5e7eb;border-left:4px solid var(--brand);border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(2,6,23,.06);}
     
     /* 篩選 tabs (純 CSS，無 JS) */
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 14px;}
     .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;}
-    
-    /* 【修正】隱藏 radio buttons (移到 .tabs 之外) */
     .tabs-input{position:absolute;opacity:0;}
-    
-    /* 【修正】選中標籤的樣式 (改用 ~ 選擇器) */
     #tab-all:checked ~ .tabs label[for="tab-all"],
     #tab-family:checked ~ .tabs label[for="tab-family"],
     #tab-exhibit:checked ~ .tabs label[for="tab-exhibit"],
@@ -47,8 +66,6 @@
       border-color:var(--brand);
       box-shadow:0 4px 14px rgba(20,184,166,.25);
     }
-
-    /* 篩選顯示邏輯 (此邏輯現在可正確運作) */
     [data-scope] .card{display:block;}
     #tab-all:checked ~ [data-scope] .card{display:block;}
     #tab-family:checked ~ [data-scope] .card{display:none;}
@@ -58,6 +75,51 @@
     #tab-market:checked ~ [data-scope] .card{display:none;}
     #tab-market:checked ~ [data-scope] .card[data-cat*="市集"]{display:block;}
     
+    /* ---
+    ▼▼▼【新增的宣傳卡樣式】▼▼▼
+    ---
+    */
+    .promo-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      background-color: #f0f0f0; /* 備用底色 */
+      background-size: cover;
+      background-position: center;
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 10px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 12px rgba(2,6,23,.05);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .promo-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2,6,23,.08);
+    }
+    .promo-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 999px; /* 圓形頭像 */
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,.8);
+      flex-shrink: 0;
+    }
+    .promo-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff; /* 白色文字以搭配暗色遮罩 */
+      text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    }
+    .promo-text small {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,.9);
+    }
+    /* --- (宣傳卡樣式結束) --- */
+
     /* 浮動回到全部 */
     .reset{position:fixed;right:16px;bottom:16px;z-index:3;}
     .reset label{background:var(--brand);color:#fff;border-radius:999px;padding:10px 12px;font-size:13px;cursor:pointer;box-shadow:0 10px 24px rgba(20,184,166,.28);}
@@ -70,7 +132,6 @@
         url('bg.jpg'); /* 推薦：把底圖存成本地 bg.jpg */
       background-size:cover;background-position:center;
     }
-    /* 若你暫時沒放 bg.jpg，這段外連圖做為備援（可留可去） */
     @media (prefers-reduced-data: no-preference){
       .bg{ background-image:
         linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)),
@@ -108,6 +169,15 @@
         </div>
         <img alt="LINE 社群 QR" src="https://i.meee.com.tw/zV4qoCL.jpg" style="width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover;">
       </div>
+
+      <a href="https://www.facebook.com/yunlinbpk/photos" target="_blank" rel="noopener" class="promo-card" 
+         style="background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(https://via.placeholder.com/800x300.png?text=請放上雲林背包客的橫幅照片);">
+        <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256" 
+             alt="雲林背包客" class="promo-avatar">
+        <span class="promo-text">
+          照片授權：雲林背包客
+          <small>點擊追蹤，看更多在地美照與活動</small>
+        </span>
 
       <div style="display:flex;align-items:center;gap:10px;margin:8px 0 6px;">
         <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">這週快看</span>
@@ -195,4 +265,5 @@
 </body>
 
 </html>
+
 
