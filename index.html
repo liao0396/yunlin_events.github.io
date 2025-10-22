@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>雲林近期活動</title>
-  <meta name="description" content="雲林近期活動整理：親子、展覽、市集。含這週快看、本月焦點、下月上旬預告。">
+  <meta name="description" content="雲林近期活動整理：親子、展覽、市集。">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <style>
     :root{
@@ -27,31 +27,22 @@
     .tag{font-size:11px;padding:2px 8px;border-radius:999px;background:#f0fdf4;border:1px solid #bbf7d0;color:#065f46;margin-right:6px}
     .grid{display:flex;flex-wrap:wrap;gap:14px;}
     
-    /* ---
-    ▼▼▼【卡片設計已更新】▼▼▼
-    ---
+    /* 【卡片設計已還原】
+      使用上一版的純文字卡片
     */
     .card{
-      flex:1 1 520px;min-width:280px;background:var(--panel);border:1px solid #e5e7eb;border-left:6px solid var(--brand);
+      flex:1 1 520px;
+      min-width:280px;
+      background:var(--panel);
+      border:1px solid #e5e7eb;
+      border-left:6px solid var(--brand);
       border-radius:14px;
-      padding: 0; /* (修改) 移除內距，由 content wrapper 處理 */
+      padding:14px 16px;
       box-shadow:var(--shadow);
-      overflow: hidden; /* (新增) 裁切圖片邊角 */
     }
-    .card-img {
-      width: 100%;
-      height: 220px; /* 您可以調整這個高度 */
-      object-fit: cover; /* 圖片會被裁切，不會變形 */
-      display: block;
-      border-bottom: 1px solid #e5e7eb; /* 圖片和文字間的分隔線 */
-    }
-    .card-content {
-      padding: 14px 16px; /* (新增) 放置文字內容的容器 */
-    }
-    /* --- (卡片設計更新結束) --- */
     
-    .scroller{display:flex;gap:10px;padding:8px;border:1px solid var(--ring);background:rgba(255,255,255,.85);border-radius:14px;overflow:auto;}
-    .mini{min-width:280px;background:#fff;border:1px solid #e5e7eb;border-left:4px solid var(--brand);border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(2,6,23,.06);}
+    /* ( scroller / mini 樣式已移除 )
+    */
     
     /* 篩選 tabs (純 CSS，無 JS) */
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 14px;}
@@ -75,9 +66,8 @@
     #tab-market:checked ~ [data-scope] .card{display:none;}
     #tab-market:checked ~ [data-scope] .card[data-cat*="市集"]{display:block;}
     
-    /* ---
-    ▼▼▼【新增的宣傳卡樣式】▼▼▼
-    ---
+    /* 【保留】
+      新增的「雲林背包客」宣傳卡樣式
     */
     .promo-card {
       display: flex;
@@ -162,7 +152,7 @@
           <div style="font-weight:600;margin-bottom:4px;">「雲林地區活動、美食、景點」LINE 社群</div>
           <div style="font-size:13px;color:var(--muted);">點擊加入：</div>
           <div style="margin-top:6px;">
-            <a href="https://line.me/ti/g2/6dt82ZqPrVK_MlZc5BQ0YG1Ksb5ZtIqH4AkyBQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
+            <a href="https://line.me/ti/g2/6dt8ZqPrVK_MlZc5BQ0YG1Ksb5ZtIqH4AkyBQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
                target="_blank" rel="noopener"
                style="display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;box-shadow:0 6px 16px rgba(20,184,166,.25);">加入 LINE 社群 ↗</a>
           </div>
@@ -178,43 +168,7 @@
           照片授權：雲林背包客
           <small>點擊追蹤，看更多在地美照與活動</small>
         </span>
-
-      <div style="display:flex;align-items:center;gap:10px;margin:8px 0 6px;">
-        <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">這週快看</span>
-        <small style="color:var(--muted);">最接近的一週活動精選</small>
-      </div>
-      <div class="scroller">
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/24</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">萬聖節大型派對（斗六 藝術水岸公園）</div><div class="meta" style="font-size:13px;">14:00–20:00 ｜ <a class="link" href="https://maps.app.goo.gl/DTgnEC8UXM2HfYHJ6" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/24</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">後斗市集（虎尾 央廣園區）</div><div class="meta" style="font-size:13px;">14:00–17:00 ｜ <a class="link" href="https://maps.app.goo.gl/MfDmYo6q22H7Jkyf9" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/25–10/26</span><a class="link" href="https://social.yunlin.gov.tw/News_Content.aspx?n=713&s=567640" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">西螺大橋藝陣文化祭（西螺 大橋下草坪）</div><div class="meta" style="font-size:13px;">15:00–20:00 ｜ <a class="link" href="https://maps.app.goo.gl/x3iMhL8SAaAWbAub8" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/25</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－FOCASA（土庫 庄役場前）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/XmvTBnbSR5heyMB98" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/26</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－臺灣特技團（斗南 田徑場）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/4HaqQh8ewM7XMfsm7" target="_blank">地圖</a></div></div>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;margin:14px 0 6px;">
-        <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">本月焦點</span>
-        <small style="color:var(--muted);">10 月的重要活動</small>
-      </div>
-      <div class="scroller">
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/01–10/26</span><a class="link" href="https://development.yunlin.gov.tw/News_Content.aspx?n=1066&s=566053" target="_blank">活動頁 ↗</a></div><div class="h" style="font-size:15px;">「週週有表演」布袋戲館</div><div class="meta" style="font-size:13px;">虎尾 二樓戲院廣場 ｜ <a class="link" href="https://maps.google.com/?q=%E9%9B%B2%E6%9E%97%E5%B8%83%E8%A2%8B%E6%88%B2%E9%A4%A8" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/18–10/29</span><a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/Index/A000000429" target="_blank">活動頁 ↗</a></div><div class="h" style="font-size:15px;">雲林縣大埤鄉藝術家聯展</div><div class="meta" style="font-size:13px;">斗六 文化觀光處 ｜ <a class="link" href="https://maps.google.com/?q=%E9%9B%B2%E6%9E%97%E7%B8%A3%E6%94%BF%E5%BA%9C%E6%96%87%E5%8C%96%E8%A7%80%E5%85%89%E8%99%95" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/18–11/29</span><a class="link" href="https://tw.news.yahoo.com/%E9%99%B3%E7%8E%84%E8%8C%82%E6%B0%B4%E5%A2%A8%E5%B0%8D%E8%A9%B1%E5%B1%B1%E6%B5%B7-%E5%8C%97%E6%B8%AF%E6%96%87%E5%8C%96%E4%B8%AD%E5%BF%83%E5%B1%95%E6%BC%94%E7%8E%84%E5%A2%83%E5%A2%A8%E9%9F%BB-150957430.html" target="_blank">活動頁 ↗</a></div><div class="h" style="font-size:15px;">《玄境・墨韻》陳玄茂個展</div><div class="meta" style="font-size:13px;">北港 文化中心 ｜ <a class="link" href="https://maps.google.com/?q=%E5%8C%97%E6%B8%AF%E6%96%87%E5%8C%96%E4%B8%AD%E5%BF%83" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">10/10–12/21</span><a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a></div><div class="h" style="font-size:15px;">《聖道流光：霹靂傳奇群像》</div><div class="meta" style="font-size:13px;">虎尾 布袋戲館 ｜ <a class="link" href="https://maps.google.com/?q=%E9%9B%B2%E6%9E%97%E5%B8%83%E8%A2%8B%E6%88%B2%E9%A4%A8" target="_blank">地圖</a></div></div>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;margin:14px 0 6px;">
-        <span class="pill" style="background:#e6fffb;color:#047857;border-color:#99f6e4;">下月預告</span>
-        <small style="color:var(--muted);">11 月上旬重點活動</small>
-      </div>
-      <div class="scroller">
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/01</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">他里霧綠色工坊：鐵罐總動員（斗南 環教館）</div><div class="meta" style="font-size:13px;">14:00–16:00 ｜ <a class="link" href="https://maps.app.goo.gl/YeL8yiWxnfQgiGNG7" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/08</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">2025 幸福島嶼 We are...（斗南 森食農教育園區）</div><div class="meta" style="font-size:13px;">15:00–20:00 ｜ <a class="link" href="https://maps.app.goo.gl/ZHtpdQNe4KFT5Xgq8" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/09</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">第12屆烏克麗麗嘉年華（水林 鄉公所前廣場）</div><div class="meta" style="font-size:13px;">08:00–15:00 ｜ <a class="link" href="https://maps.app.goo.gl/17uH1PrpFo5yvdoSA" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/09</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">2025 幸福島嶼 We are...（加場）</div><div class="meta" style="font-size:13px;">斗南 森食農教育園區 ｜ 15:00–20:00 ｜ <a class="link" href="https://maps.app.goo.gl/ZHtpdQNe4KFT5Xgq8" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/14</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－壞鞋子舞蹈劇場（大埤 三山國王廟）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/G5gQCR3HM2xaidf86" target="_blank">地圖</a></div></div>
-        <div class="mini"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span class="pill">11/15</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank" rel="noopener">活動頁 ↗</a></div><div class="h" style="font-size:15px;">藝術宅急便－壞鞋子舞蹈劇場（古坑 中洲玄武宮）</div><div class="meta" style="font-size:13px;">19:00– ｜ <a class="link" href="https://maps.app.goo.gl/QcRqsaf21WjxcMbz8" target="_blank">地圖</a></div></div>
-      </div>
-
+      </a>
       <input type="radio" name="cats" id="tab-all" checked class="tabs-input">
       <input type="radio" name="cats" id="tab-family" class="tabs-input">
       <input type="radio" name="cats" id="tab-exhibit" class="tabs-input">
@@ -239,7 +193,7 @@
         <div class="card" data-cat="市集"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/24</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a></div><div class="h">後斗市集（虎尾 央廣園區）</div><div class="meta"><strong>時間</strong>：14:00–17:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/MfDmYo6q22H7Jkyf9" target="_blank">Google 地圖</a></div><div><span class="tag">市集</span></div></div>
         <div class="card" data-cat="市集"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/25–10/26</span><a class="link" href="https://social.yunlin.gov.tw/News_Content.aspx?n=713&s=567640" target="_blank">活動頁 ↗</a></div><div class="h">西螺大橋藝陣文化祭（西螺 大橋下草坪）</div><div class="meta"><strong>時間</strong>：15:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/x3iMhL8SAaAWbAub8" target="_blank">Google 地圖</a></div><div><span class="tag">市集</span></div></div>
         <div class="card" data-cat="親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/25</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a></div><div class="h">藝術宅急便－FOCASA（土庫 庄役場前）</div><div class="meta"><strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/XmvTBnbSR5heyMB98" target="_blank">Google 地圖</a></div><div><span class="tag">親子</span></div></div>
-        <div class="card" data-cat="親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/25</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a></div><div class="h">#雲耀星聲 決賽演唱會（斗六 表演廳）</div><div class="meta"><strong>時間</strong>：17:20– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/m3qs9HCmZ3vuNn2U7" target="_blank">Google 地圖</a></div><div><span class="tag">親子</span></div></div>
+        <div class="card" data-cat="親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">1WELCOME-TO-MY-WORLD–</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a></div><div class="h">#雲耀星聲 決賽演唱會（斗六 表演廳）</div><div class="meta"><strong>時間</strong>：17:20– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/m3qs9HCmZ3vuNn2U7" target="_blank">Google 地圖</a></div><div><span class="tag">親子</span></div></div>
         <div class="card" data-cat="親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/26</span><a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a></div><div class="h">藝術宅急便－臺灣特技團（斗南 田徑場）</div><div class="meta"><strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/4HaqQh8ewM7XMfsm7" target="_blank">Google 地圖</a></div><div><span class="tag">親子</span></div></div>
         <div class="card" data-cat="展覽 親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">10/30</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank">活動頁 ↗</a></div><div class="h">「老前輩講堂」職業運動員／轉播領域（斗六 縣府大禮堂）</div><div class="meta"><strong>時間</strong>：14:30–16:30 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/WhYzovdVgz1BzbUY9" target="_blank">Google 地圖</a></div><div><span class="tag">展覽</span></div></div>
         <div class="card" data-cat="親子"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span class="pill">11/01</span><a class="link" href="https://docs.google.com/document/d/e/2PACX-1vTCb-fs5G8wzQJWbJ-4iAqOI69UDowiTB1PN40vFaFEqiCQXuZ7Rw1xCdyXIzXuttOwQElMgXzcZHMJ/pub" target="_blank">活動頁 ↗</a></div><div class="h">他里霧綠色工坊：鐵罐總動員（斗南 環教館）</div><div class="meta"><strong>時間</strong>：14:00–16:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/YeL8yiWxnfQgiGNG7" target="_blank">Google 地圖</a></div><div><span class="tag">親子</span></div></div>
@@ -253,17 +207,5 @@
       <div class="reset"><label for="tab-all" title="清除篩選，顯示全部">回到全部</label></div>
     </div>
   </section>
-  
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
-        <a href="https://www.facebook.com/yunlinbpk/photos" target="_blank" rel="noopener"
-           style="display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(255,255,255,.9);border:1px solid #e5e7eb;border-radius:12px;padding:8px 10px;">
-          <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256"
-               alt="雲林背包客" style="width:56px;height:56px;border-radius:10px;object-fit:cover;">
-          <span style="font-size:14px;color:#111827;">追蹤「雲林背包客」更多在地美照與活動</span>
-        </a>
-      </div>
 </body>
-
 </html>
-
-
