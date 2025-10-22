@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>雲林近期活動</title>
-  <meta name="description" content="雲林近期活動整理：親子、展覽、市集。">
+  <meta name="description" content="雲林近期活動整理：親子、展覽、市集、地區篩選。">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <style>
     :root{
@@ -37,92 +37,42 @@
       border-radius:14px;
       padding:14px 16px;
       box-shadow:var(--shadow);
+      display: block; /* 預設顯示 */
+      transition: opacity 0.3s ease; /* (可選) 增加隱藏動畫 */
     }
     
-    /* 篩選 tabs (純 CSS，無 JS) */
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 14px;}
+    /* 篩選 tabs */
+    .tabs-container { margin: 12px 0; } /* 新增容器間距 */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;}
-    .tabs-input{position:absolute;opacity:0;}
-    #tab-all:checked ~ .tabs label[for="tab-all"],
-    #tab-family:checked ~ .tabs label[for="tab-family"],
-    #tab-exhibit:checked ~ .tabs label[for="tab-exhibit"],
-    #tab-market:checked ~ .tabs label[for="tab-market"] {
+    .tabs-input{position:absolute;opacity:0;} /* 隱藏 radio 按鈕 */
+
+    /* 選中標籤的樣式 - 依賴 input 和 label 相鄰 */
+    .tabs-input:checked + label {
       background:var(--brand);
       color:#fff;
       border-color:var(--brand);
       box-shadow:0 4px 14px rgba(20,184,166,.25);
     }
-    [data-scope] .card{display:block;}
-    #tab-all:checked ~ [data-scope] .card{display:block;}
-    #tab-family:checked ~ [data-scope] .card{display:none;}
-    #tab-family:checked ~ [data-scope] .card[data-cat*="親子"]{display:block;}
-    #tab-exhibit:checked ~ [data-scope] .card{display:none;}
-    #tab-exhibit:checked ~ [data-scope] .card[data-cat*="展覽"]{display:block;}
-    #tab-market:checked ~ [data-scope] .card{display:none;}
-    #tab-market:checked ~ [data-scope] .card[data-cat*="市集"]{display:block;}
-    
+
+    /* 由 JavaScript 控制的隱藏樣式 */
+    .card.hidden { display: none; }
+
     /* 「雲林背包客」宣傳卡樣式 */
-    .promo-card {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* 【已修改】頭像與文字置中 */
-      gap: 14px;
-      text-decoration: none;
-      background-color: #f0f0f0; /* 備用底色 */
-      background-size: cover;
-      background-position: center;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 10px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 4px 12px rgba(2,6,23,.05);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .promo-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(2,6,23,.08);
-    }
-    .promo-avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 999px; /* 圓形頭像 */
-      object-fit: cover;
-      border: 2px solid rgba(255,255,255,.8);
-      flex-shrink: 0;
-    }
-    .promo-text {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ffffff; /* 白色文字以搭配暗色遮罩 */
-      text-shadow: 0 1px 3px rgba(0,0,0,.5);
-    }
-    .promo-text small {
-      display: block;
-      font-size: 13px;
-      font-weight: 400;
-      color: rgba(255,255,255,.9);
-    }
-    /* --- (宣傳卡樣式結束) --- */
+    .promo-card { display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; background-color: #f0f0f0; background-size: cover; background-position: center; border-radius: 14px; padding: 16px; margin-top: 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(2,6,23,.05); transition: transform .2s ease, box-shadow .2s ease; }
+    .promo-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2,6,23,.08); }
+    .promo-avatar { width: 60px; height: 60px; border-radius: 999px; object-fit: cover; border: 2px solid rgba(255,255,255,.8); flex-shrink: 0; }
+    .promo-text { font-size: 16px; font-weight: 600; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+    .promo-text small { display: block; font-size: 13px; font-weight: 400; color: rgba(255,255,255,.9); }
 
     /* 浮動回到全部 */
     .reset{position:fixed;right:16px;bottom:16px;z-index:3;}
     .reset label{background:var(--brand);color:#fff;border-radius:999px;padding:10px 12px;font-size:13px;cursor:pointer;box-shadow:0 10px 24px rgba(20,184,166,.28);}
     
     /* 背景圖層 */
-    .bg{
-      position:absolute;inset:0;
-      background-image:
-        linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)),
-        url('bg.jpg'); /* 推薦：把底圖存成本地 bg.jpg */
-      background-size:cover;background-position:center;
-    }
-    @media (prefers-reduced-data: no-preference){
-      .bg{ background-image:
-        linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)),
-        url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256');}
-    }
+    .bg{ position:absolute; inset:0; background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('bg.jpg'); background-size:cover; background-position:center; }
+    @media (prefers-reduced-data: no-preference){ .bg{ background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256');} }
     
-    }
   </style>
 </head>
 <body>
@@ -130,13 +80,14 @@
     <div class="bg" aria-hidden="true"></div>
 
     <div class="wrap">
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+      
+      <div style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom:6px;">
         <h1 style="margin:0;font-size:26px;letter-spacing:.3px;">雲林近期活動</h1>
         <span style="font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid var(--ring);border-radius:999px;background:var(--brand-50);">依開始日期（最早→最晚）</span>
       </div>
 
+
       <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;margin:18px 0 2px;background:rgba(255,255,255,.90);border:1px dashed #a7f3d0;border-radius:14px;">
-        
         <div style="flex:1;min-width:200px;">
           <div style="font-weight:600;margin-bottom:4px;">「雲林地區活動、美食、景點」LINE 社群</div>
           <div style="font-size:13px;color:var(--muted);">點擊加入：</div>
@@ -146,13 +97,11 @@
                style="display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;box-shadow:0 6px 16px rgba(20,184,166,.25);">加入 LINE 社群 ↗</a>
           </div>
         </div>
-        
         <img alt="LINE 社群 QR" src="https://i.meee.com.tw/zV4qoCL.jpg" style="width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover;">
       </div>
 
       <a href="https://www.facebook.com/yunlinbpk/photos" target="_blank" rel="noopener" class="promo-card" 
          style="background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(https://via.placeholder.com/800x300.png?text=請放上雲林背包客的橫幅照片);">
-        
         <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256" 
              alt="雲林背包客" class="promo-avatar">
         <span class="promo-text">
@@ -160,21 +109,34 @@
           <small>點擊追蹤，看更多在地美照與活動</small>
         </span>
       </a>
-      <input type="radio" name="cats" id="tab-all" checked class="tabs-input">
-      <input type="radio" name="cats" id="tab-family" class="tabs-input">
-      <input type="radio" name="cats" id="tab-exhibit" class="tabs-input">
-      <input type="radio" name="cats" id="tab-market" class="tabs-input">
-      
-      <div class="tabs">
-        <label for="tab-all">全部</label>
-        <label for="tab-family">親子</label>
-        <label for="tab-exhibit">展覽</label>
-        <label for="tab-market">市集</label>
-      </div>
 
+      <div class="tabs-container">
+        <div class="tabs">
+          <input type="radio" name="cats" id="tab-all" value="all" checked class="tabs-input"><label for="tab-all">全部</label>
+          <input type="radio" name="cats" id="tab-family" value="親子" class="tabs-input"><label for="tab-family">親子</label>
+          <input type="radio" name="cats" id="tab-exhibit" value="展覽" class="tabs-input"><label for="tab-exhibit">展覽</label>
+          <input type="radio" name="cats" id="tab-market" value="市集" class="tabs-input"><label for="tab-market">市集</label>
+        </div>
+      </div>
+      
+      <div class="tabs-container">
+        <div class="tabs">
+          <input type="radio" name="region" id="tab-loc-all" value="all" checked class="tabs-input"><label for="tab-loc-all">全縣</label>
+          <input type="radio" name="region" id="tab-loc-douliu" value="斗六" class="tabs-input"><label for="tab-loc-douliu">斗六</label>
+          <input type="radio" name="region" id="tab-loc-huwei" value="虎尾" class="tabs-input"><label for="tab-loc-huwei">虎尾</label>
+          <input type="radio" name="region" id="tab-loc-beigang" value="北港" class="tabs-input"><label for="tab-loc-beigang">北港</label>
+          <input type="radio" name="region" id="tab-loc-erlun" value="二崙" class="tabs-input"><label for="tab-loc-erlun">二崙</label>
+          <input type="radio" name="region" id="tab-loc-dounan" value="斗南" class="tabs-input"><label for="tab-loc-dounan">斗南</label>
+          <input type="radio" name="region" id="tab-loc-tuku" value="土庫" class="tabs-input"><label for="tab-loc-tuku">土庫</label>
+          <input type="radio" name="region" id="tab-loc-shuilin" value="水林" class="tabs-input"><label for="tab-loc-shuilin">水林</label>
+          <input type="radio" name="region" id="tab-loc-dapi" value="大埤" class="tabs-input"><label for="tab-loc-dapi">大埤</label>
+          <input type="radio" name="region" id="tab-loc-gukeng" value="古坑" class="tabs-input"><label for="tab-loc-gukeng">古坑</label>
+          <input type="radio" name="region" id="tab-loc-xiluo" value="西螺" class="tabs-input"><label for="tab-loc-xiluo">西螺</label> 
+        </div>
+      </div>
       <div class="grid" data-scope>
 
-        <div class="card" data-cat="市集 親子">
+        <div class="card" data-cat="市集 親子" data-region="全縣">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/08–11/30</span>
             <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a>
@@ -183,11 +145,11 @@
           <div class="meta">
             <div><strong>地區</strong>：全縣（多點位）</div>
             <div><strong>時間</strong>：依各店家公告</div>
-            <div><strong>地圖</strong>：<a class="link" href="" target="_blank"></a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">市集</span><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="展覽">
+        <div class="card" data-cat="展覽" data-region="北港">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/13–11/05</span>
             <a class="link" href="https://news.st-media.com.tw/news/53543" target="_blank">活動頁 ↗</a>
@@ -196,25 +158,37 @@
           <div class="meta">
             <div><strong>地區</strong>：北港（文化中心）</div>
             <div><strong>時間</strong>：09:00–17:00（週一休）</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/TK5LeWqYcaSoXq6Y7" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=北港文化中心" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="市集 親子">
+        <div class="card" data-cat="市集 親子" data-region="二崙"> 
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/28–10/24</span>
             <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/Index/A000000423" target="_blank">活動頁 ↗</a>
           </div>
-
+          <div class="h">2025 雲林・詔安客家文化節</div>
+          <div class="meta">
+            <div><strong>地區</strong>：二崙、崙背等</div>
+            <div><strong>時間</strong>：各場次依公告</div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林二崙,雲林崙背" target="_blank">Google 地圖（範例）</a></div>
+          </div>
+          <div><span class="tag">市集</span><span class="tag">親子</span></div>
+        </div>
+        <div class="card" data-cat="親子" data-region="虎尾">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span class="pill">10/01–10/26</span>
+            <a class="link" href="https://development.yunlin.gov.tw/News_Content.aspx?n=1066&s=566053" target="_blank">活動頁 ↗</a>
+          </div>
           <div class="h">「週週有表演」114 年 10 月推廣演出</div>
           <div class="meta">
             <div><strong>地區</strong>：虎尾（布袋戲館）</div>
             <div><strong>時間</strong>：週末場次</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/om6WUNTZfwp52SDt5" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林布袋戲館" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="展覽 親子">
+        <div class="card" data-cat="展覽 親子" data-region="虎尾">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/10–12/21</span>
             <a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a>
@@ -223,11 +197,11 @@
           <div class="meta">
             <div><strong>地區</strong>：虎尾（布袋戲館）</div>
             <div><strong>時間</strong>：10:00–18:00（週一、二休）</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/sfkE3Le3ZshgxT616" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林布袋戲館" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="展覽">
+        <div class="card" data-cat="展覽" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/18–10/29</span>
             <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/Index/A000000429" target="_blank">活動頁 ↗</a>
@@ -236,11 +210,11 @@
           <div class="meta">
             <div><strong>地區</strong>：斗六（文化觀光處 展覽館 1 樓）</div>
             <div><strong>時間</strong>：09:00–17:00</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/mJFivaz2Zswr8yzM9" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林縣政府文化觀光處" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="展覽">
+        <div class="card" data-cat="展覽" data-region="北港">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/18–11/29</span>
             <a class="link" href="https://tw.news.yahoo.com/%E9%99%B3%E7%8E%84%E8%8C%82%E6%B0%B4%E5%A2%A8%E5%B0%8D%E8%A9%B1%E5%B1%B1%E6%B5%B7-%E5%8C%97%E6%B8%AF%E6%96%87%E5%8C%96%E4%B8%AD%E5%BF%83%E5%B1%95%E6%BC%94%E7%8E%84%E5%A2%83%E5%A2%A8%E9%9F%BB-150957430.html" target="_blank">活動頁 ↗</a>
@@ -249,121 +223,121 @@
           <div class="meta">
             <div><strong>地區</strong>：北港（文化中心）</div>
             <div><strong>時間</strong>：09:00–17:00（週一休）</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/J7rYcuqS1ULPr6AS6" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=北港文化中心" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="市集 親子">
+        <div class="card" data-cat="市集 親子" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/24</span>
-            <a class="link" href="https://www.facebook.com/share/r/12LL4mxu3ds/" target="_blank">活動頁 ↗</a>
+            <a class="link" href="https://servicestation.immigration.gov.tw/1481/1530/4941/4990/397772/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">萬聖節大型派對（斗六 藝術水岸公園）</div>
           <div class="meta">
-            <strong>時間</strong>：14:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/DTgnEC8UXM2HfYHJ6" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：14:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗六藝術水岸公園" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="市集">
+        <div class="card" data-cat="市集" data-region="虎尾">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/24</span>
             <a class="link" href="https://www.facebook.com/photo/?fbid=1250066637165897&set=a.345473410958562" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">後斗市集（虎尾 央廣園區）</div>
           <div class="meta">
-            <strong>時間</strong>：14:00–17:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/MfDmYo6q22H7Jkyf9" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：14:00–17:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=虎尾央廣園區" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span></div>
         </div>
-        <div class="card" data-cat="市集">
+        <div class="card" data-cat="市集" data-region="西螺">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/25–10/26</span>
             <a class="link" href="https://www.facebook.com/share/p/1ZPy13EW8z/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">西螺大橋藝陣文化祭（西螺 大橋下草坪）</div>
           <div class="meta">
-            <strong>時間</strong>：15:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/x3iMhL8SAaAWbAub8" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：15:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=西螺大橋下草坪" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span></div>
         </div>
-        <div class="card" data-cat="親子">
+        <div class="card" data-cat="親子" data-region="土庫">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/25</span>
             <a class="link" href="https://www.facebook.com/share/p/1FNUMkuJZm/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">藝術宅急便－FOCASA（土庫 庄役場前）</div>
           <div class="meta">
-            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/XmvTBnbSR5heyMB98" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=土庫庄役場" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="親子">
+        <div class="card" data-cat="親子" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/25</span>
             <a class="link" href="https://www.facebook.com/share/p/1FtYtBu9A9/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">#雲耀星聲 決賽演唱會（斗六 表演廳）</div>
           <div class="meta">
-            <strong>時間</strong>：17:20– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/m3qs9HCmZ3vuNn2U7" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：17:20– ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林表演廳" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="親子">
+        <div class="card" data-cat="親子" data-region="斗南">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/26</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">藝術宅急便－臺灣特技團（斗南 田徑場）</div>
           <div class="meta">
-            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/4HaqQh8ewM7XMfsm7" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗南田徑場" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="展覽 親子">
+        <div class="card" data-cat="展覽 親子" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/30</span>
             <a class="link" href="https://www.facebook.com/share/p/16R3MchbcD/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">「老前輩講堂」職業運動員／轉播領域（斗六 縣府大禮堂）</div>
           <div class="meta">
-            <strong>時間</strong>：14:30–16:30 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/WhYzovdVgz1BzbUY9" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：14:30–16:30 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林縣政府大禮堂" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="親子">
+        <div class="card" data-cat="親子" data-region="斗南">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/01</span>
             <a class="link" href="https://www.facebook.com/share/p/1BPh71dJ5W/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">他里霧綠色工坊：鐵罐總動員（斗南 環教館）</div>
           <div class="meta">
-            <strong>時間</strong>：14:00–16:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/YeL8yiWxnfQgiGNG7" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：14:00–16:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗南他里霧環教館" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="市集 親子">
+        <div class="card" data-cat="市集 親子" data-region="斗南">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/08</span>
             <a class="link" href="https://www.facebook.com/share/p/1A5xetH5VJ/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">2025 幸福島嶼 We are...（斗南 森食農教育園區）</div>
           <div class="meta">
-            <strong>時間</strong>：15:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/ZHtpdQNe4KFT5Xgq8" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：15:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗南森食農教育園區" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span></div>
         </div>
-        <div class="card" data-cat="親子">
+        <div class="card" data-cat="親子" data-region="水林">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/09</span>
             <a class="link" href="https://shuilin.yunlin.gov.tw/News_Content.aspx?n=7193&sms=14728&s=561315" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">第12屆烏克麗麗嘉年華（水林 鄉公所前廣場）</div>
           <div class="meta">
-            <strong>時間</strong>：08:00–15:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/17uH1PrpFo5yvdoSA" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：08:00–15:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=水林鄉公所" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">親子</span></div>
         </div>
-        <div class="card" data-cat="市集">
+        <div class="card" data-cat="市集" data-region="斗南">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/09</span>
             <a class="link" href="https://www.facebook.com/share/p/1A5xetH5VJ/" target="_blank">活動頁 ↗</a>
@@ -372,11 +346,11 @@
           <div class="meta">
             <strong>地區</strong>：斗南（森食農教育園區）｜ 
             <strong>時間</strong>：15:00–20:00 ｜ 
-            <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/ZHtpdQNe4KFT5Xgq8" target="_blank">Google 地圖</a>
+            <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗南森食農教育園區" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span></div>
         </div>
-        <div class="card" data-cat="展覽 親子">
+        <div class="card" data-cat="展覽 親子" data-region="大埤">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/14</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
@@ -384,24 +358,88 @@
           <div class="h">藝術宅急便－壞鞋子舞蹈劇場（大埤 三山國王廟）</div>
           <div class="meta">
             <strong>時間</strong>：19:00– ｜ 
-            <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/G5gQCR3HM2xaidf86" target="_blank">Google 地圖</a>
+            <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=大埤三山國王廟" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        <div class="card" data-cat="展覽 親子">
+        <div class="card" data-cat="展覽 親子" data-region="古坑">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">11/15</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">藝術宅急便－壞鞋子舞蹈劇場（古坑 中洲玄武宮）</div>
           <div class="meta">
-            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/QcRqsaf21WjxcMbz8" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：19:00– ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=古坑中洲玄武宮" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
         </div>
-      <div class="reset"><label for="tab-all" title="清除篩選，顯示全部">回到全部</label></div>
+      <div class="reset">
+         {/* ID 用於 JS 重置 */}
+        <label for="tab-all" id="reset-filters-label" title="清除篩選，顯示全部">回到全部</label>
+      </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const allFilters = document.querySelectorAll('.tabs-input'); // 所有 radio 按鈕
+      const eventCards = document.querySelectorAll('.grid[data-scope] .card');
+      const resetLabel = document.getElementById('reset-filters-label');
+
+      // --- 篩選邏輯 ---
+      function filterEvents() {
+        const selectedCategory = document.querySelector('input[name="cats"]:checked').value;
+        const selectedRegion = document.querySelector('input[name="region"]:checked').value;
+
+        eventCards.forEach(card => {
+          const cardCategory = card.dataset.cat || ''; // 卡片的分類 (可能有多個)
+          const cardRegion = card.dataset.region || '';   // 卡片的地區
+
+          // 檢查分類是否匹配
+          const categoryMatch = selectedCategory === 'all' || cardCategory.split(' ').includes(selectedCategory);
+          
+          // 檢查地區是否匹配 (修正邏輯)
+          let regionMatch = false;
+          if (selectedRegion === 'all') {
+            regionMatch = true; // 選 "全縣" 時，所有地區都匹配
+          } else {
+            // 選特定地區時，只匹配該地區 (不包含標示為"全縣"的卡片)
+            regionMatch = cardRegion === selectedRegion && cardRegion !== '全縣'; 
+          }
+
+          // 同時滿足才顯示
+          if (categoryMatch && regionMatch) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      }
+
+      // --- 綁定事件監聽 ---
+      allFilters.forEach(filter => {
+        filter.addEventListener('change', filterEvents);
+      });
+
+      // --- 處理重置按鈕 ---
+      if (resetLabel) {
+        resetLabel.addEventListener('click', (event) => {
+          // 觸發 category 'all' 的選中
+          document.getElementById('tab-all').checked = true; 
+          // 觸發 region 'all' 的選中
+          document.getElementById('tab-loc-all').checked = true;
+          
+          // 手動觸發一次篩選更新
+          filterEvents(); 
+        });
+      }
+
+      // 初始加載時執行一次篩選 (確保初始狀態正確)
+      filterEvents(); 
+
+    });
+  </script>
+
 </body>
 </html>
