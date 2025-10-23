@@ -136,11 +136,14 @@
       box-shadow: 0 10px 24px rgba(20, 184, 166, .28);
       transition: all .2s;
     }
-    .submit-btn:disabled {
+    
+    /* (修改) 增加 .cooldown 樣式 */
+    .submit-btn:disabled, .submit-btn.cooldown {
       background: var(--muted);
       cursor: not-allowed;
       box-shadow: none;
     }
+
     #form-status {
       font-size: 13px;
       margin-top: 10px;
@@ -226,6 +229,7 @@
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/08–11/30</span>
 <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a>
+
           </div>
 <div class="h">2025「雲林 100 亮點」行銷 × 尋寶趣</div>
           <div class="meta">
@@ -461,12 +465,12 @@
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-      </div>
+        </div>
       
       <div class="form-section">
         <h2>協助活動發布</h2>
         <p class="meta" style="margin-bottom:16px;">
-          您有雲林的活動資訊嗎？請填寫以下表單，我們會協助加入列表。
+          您有雲林的活動資訊嗎？請填寫以下表單，站長審核後會協助加入列表。
         </p>
         <form id="event-form">
           <div class="form-group">
@@ -478,7 +482,7 @@
             <input type="text" id="eventRegion" name="eventRegion" required placeholder="例如：斗六、虎尾、全縣">
           </div>
           <div class="form-group">
-            <label for="eventTime">活動日期與時間</label>
+            <label for="eventTime">活動時間</label>
             <input type="text" id="eventTime" name="eventTime" required placeholder="例如：11/20 – 11/25 或 11/30 14:00-17:00">
           </div>
           <div class="form-group">
@@ -555,61 +559,94 @@
       // 初始加載時執行一次篩選 (確保初始狀態正確)
       filterEvents(); 
 
-// ===== (新增) 表單提交邏輯 =====
+      // ===== (修改) 表單提交邏輯 (加入冷卻 Flag 和提醒) =====
       const eventForm = document.getElementById('event-form');
       const submitButton = document.getElementById('submit-button');
       const formStatus = document.getElementById('form-status');
       
-      // ⚠️ 請將 'YOUR_WEB_APP_URL_HERE' 替換為您部署的 Google Apps Script 網址
-      const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzznBEQ5n_QhBsSbeTEcyml5EmjVYT9Zxu7OVUOoARDRji2kMZZ8aOArrl7TaxdZLKSaA/exec'; // 網址不變
+      // ⚠️ (已固定) Apps Script 網址
+      const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzznBEQ5n_QhBsSbeTEcyml5EmjVYT9Zxu7OVUOoARDRji2kMZZ8aOArrl7TaxdZLKSaA/exec'; 
+
+      let isCoolingDown = false; // (新增) 冷卻狀態旗標
 
       if (eventForm) {
         eventForm.addEventListener('submit', (e) => {
           e.preventDefault(); // 防止表單直接提交
           
-          submitButton.disabled = true;
+          // (修改) 檢查是否在冷卻中
+          if (isCoolingDown) {
+            formStatus.textContent = '提交太頻繁，請於倒數結束後再試。';
+            formStatus.className = 'status-error';
+            return; // 立刻停止，不執行提交
+          }
+
+          // (修改) 設定旗標並改用 classList
+          isCoolingDown = true;
+          submitButton.classList.add('cooldown'); // 不使用 disabled
           submitButton.textContent = '傳送中...';
           formStatus.textContent = '';
           formStatus.className = '';
 
           const formData = new FormData(eventForm);
 
-          // (修改) 拿掉 mode: 'no-cors' 並改為讀取 JSON 回應
           fetch(WEB_APP_URL, {
             method: 'POST',
             body: formData,
-            // mode: 'no-cors' // <-- (已移除) 這是導致我們看不到錯誤的元兇
           })
-          .then(response => response.json()) // <-- (修改) 告訴 fetch 我們要讀取 JSON
+          .then(response => response.json()) 
           .then(data => {
-            // (修改) 現在 'data' 是從 Apps Script 回傳的 { result: '...' } 物件
             if (data.result === 'success') {
               // 真的成功了
               formStatus.textContent = '提交成功！感謝您的分享。';
               formStatus.className = 'status-success';
               eventForm.reset(); // 清空表單
+
+              // (修改) 啟動 3 分鐘冷卻
+              let countdown = 180; // 3 minutes * 60 seconds
+              submitButton.textContent = `請稍候 (${countdown}s)`;
+              // 保持 isCoolingDown = true;
+              // 保持 .cooldown class
+
+              const interval = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                  submitButton.textContent = `請稍候 (${countdown}s)`;
+                } else {
+                  // 時間到，清除計時器並恢復按鈕
+                  clearInterval(interval);
+                  isCoolingDown = false; // 恢復旗標
+                  submitButton.classList.remove('cooldown'); // 移除樣式
+                  submitButton.textContent = '送出';
+                }
+              }, 1000); // 每秒執行一次
+
             } else {
-              // (關鍵) 伺服器回報了錯誤！
+              // 伺服器回報了錯誤！
               formStatus.textContent = '提交失敗：' + data.message;
               formStatus.className = 'status-error';
-              // (關鍵) 在 F12 Console 中顯示詳細錯誤
-              console.error('Apps Script 執行錯誤:', data); 
+              console.error('Apps Script 執行錯誤:', data);
+              
+              // (修改) 提交失敗時，恢復按鈕
+              isCoolingDown = false;
+              submitButton.classList.remove('cooldown');
+              submitButton.textContent = '送出';
             }
           })
           .catch(error => {
-            // 處理網路層錯誤 (例如 CORS 政策錯誤或網址打錯)
+            // 處理網路層錯誤
             formStatus.textContent = '提交失敗，請檢查網路連線或 F12 Console。';
             formStatus.className = 'status-error';
             console.error('Fetch 網路錯誤:', error);
-          })
-          .finally(() => {
-            // 無論成功或失敗，都恢復按鈕
-            submitButton.disabled = false;
+
+            // (修改) 提交失敗時，恢復按鈕
+            isCoolingDown = false;
+            submitButton.classList.remove('cooldown');
             submitButton.textContent = '送出';
           });
         });
       }
       // ===== (新增) 表單邏輯結束 =====
+
     });
   </script>
 
