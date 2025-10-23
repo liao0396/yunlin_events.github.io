@@ -6,7 +6,7 @@
   <title>雲林近期活動</title>
   <meta name="description" content="雲林近期活動整理：親子、展覽、市集、地區篩選。">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <style>
+<style>
     :root{
       --brand:#14b8a6;      /* Tiffany 綠 */
       --brand-50:#ecfdf5;
@@ -15,6 +15,10 @@
       --panel:#ffffff;
       --ring:#d1fae5;
       --shadow:0 10px 30px rgba(2,6,23,.08);
+    }
+    /* 平滑捲動 */
+    html {
+       scroll-behavior: smooth;
     }
     html,body{margin:0;padding:0;background:#fff;color:var(--ink);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,'Noto Sans TC',sans-serif;}
@@ -26,7 +30,7 @@
     .meta{font-size:14px;color:#374151;line-height:1.5;}
     .tag{font-size:11px;padding:2px 8px;border-radius:999px;background:#f0fdf4;border:1px solid #bbf7d0;color:#065f46;margin-right:6px}
     .grid{display:flex;flex-wrap:wrap;gap:14px;}
-    
+
     /* 卡片設計 (純文字版) */
     .card{
       flex:1 1 520px;
@@ -40,14 +44,14 @@
       display: block; /* 預設顯示 */
       transition: opacity 0.3s ease; /* (可選) 增加隱藏動畫 */
     }
-    
+
     /* 篩選 tabs */
-    .tabs-container { margin: 12px 0; } /* 新增容器間距 */
+    .tabs-container { margin: 12px 0; }
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;}
-    .tabs-input{position:absolute;opacity:0;} /* 隱藏 radio 按鈕 */
+    .tabs-input{position:absolute;opacity:0;}
 
-    /* 選中標籤的樣式 - 依賴 input 和 label 相鄰 */
+    /* 選中標籤的樣式 */
     .tabs-input:checked + label {
       background:var(--brand);
       color:#fff;
@@ -65,16 +69,88 @@
     .promo-text { font-size: 16px; font-weight: 600; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
     .promo-text small { display: block; font-size: 13px; font-weight: 400; color: rgba(255,255,255,.9); }
 
-    /* 浮動回到全部 */
+    /* 浮動回到頂端按鈕樣式 */
     .reset{position:fixed;right:16px;bottom:16px;z-index:3;}
-    .reset label{background:var(--brand);color:#fff;border-radius:999px;padding:10px 12px;font-size:13px;cursor:pointer;box-shadow:0 10px 24px rgba(20,184,166,.28);}
-    
+    #reset-filters-label { /* <-- 修正: 修正 ID (原為 reset-filters-button) */
+      background:var(--brand);
+      color:#fff;
+      border: none;
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:13px;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(20,184,166,.28);
+    }
+
+
     /* 背景圖層 */
     .bg{ position:absolute; inset:0; background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('bg.jpg'); background-size:cover; background-position:center; }
     @media (prefers-reduced-data: no-preference){ .bg{ background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256');} }
-    
+
+    /* ===== (新增) 表單樣式 ===== */
+    .form-section {
+      background: var(--panel);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-top: 20px;
+      box-shadow: var(--shadow);
+    }
+    .form-section h2 {
+      margin: 0 0 12px 0;
+      color: var(--brand);
+      font-size: 20px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      box-sizing: border-box; /* 確保 100% 寬度包含 padding */
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--ring);
+    }
+    .submit-btn {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(20, 184, 166, .28);
+      transition: all .2s;
+    }
+    .submit-btn:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    #form-status {
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .status-success { color: #065f46; } /* 成功 (綠) */
+    .status-error { color: #991b1b; }   /* 失敗 (紅) */
+    /* ===== (新增) 表單樣式結束 ===== */
+
   </style>
-</head>
+  </head>
 <body>
   <section aria-label="雲林縣近期活動" style="position:relative;">
     <div class="bg" aria-hidden="true"></div>
@@ -146,20 +222,21 @@
       </div>
       <div class="grid" data-scope>
 
-        <div class="card" data-cat="市集 親子" data-region="全縣">
+<div class="card" data-cat="市集 親子" data-region="全縣">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/08–11/30</span>
-            <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a>
+<a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">2025「雲林 100 亮點」行銷 × 尋寶趣</div>
+<div class="h">2025「雲林 100 亮點」行銷 × 尋寶趣</div>
           <div class="meta">
-            <div><strong>地區</strong>：全縣（多點位）</div>
+<div><strong>地區</strong>：全縣（多點位）</div>
             <div><strong>時間</strong>：依各店家公告</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林" target="_blank">Google 地圖</a></div>
+            <div><strong>地圖</strong>：
+            <a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林" target="_blank">Google 地圖</a></div>
           </div>
-          <div><span class="tag">市集</span><span class="tag">親子</span></div>
-        </div>
-        <div class="card" data-cat="展覽" data-region="北港">
+<div><span class="tag">市集</span><span class="tag">親子</span></div>
+         </div>
+         <div class="card" data-cat="展覽" data-region="北港">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">09/13–11/05</span>
             <a class="link" href="https://news.st-media.com.tw/news/53543" target="_blank">活動頁 ↗</a>
@@ -170,7 +247,8 @@
             <div><strong>時間</strong>：09:00–17:00（週一休）</div>
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=北港文化中心" target="_blank">Google 地圖</a></div>
           </div>
-          <div><span class="tag">展覽</span></div>
+          
+                                   <div><span class="tag">展覽</span></div>
         </div>
         <div class="card" data-cat="市集 親子" data-region="二崙">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
@@ -239,12 +317,12 @@
         </div>
         <div class="card" data-cat="市集 親子" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-            <span class="pill">10/24</span>
-            <a class="link" href="https://servicestation.immigration.gov.tw/1481/1530/4941/4990/397772/" target="_blank">活動頁 ↗</a>
+            <span class="pill">10/24-10/25</span>
+            <a class="link" href="https://tour.yunlin.gov.tw/wt-front/activity/News/N000001797" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">萬聖節大型派對（斗六 藝術水岸公園）</div>
+          <div class="h">膨鼠變裝派對 × 萬聖潮市集（斗六 膨鼠森林公園）</div>
           <div class="meta">
-            <strong>時間</strong>：14:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=斗六藝術水岸公園" target="_blank">Google 地圖</a>
+            <strong>時間</strong>：14:00–20:00 ｜ <strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/SUhkkWvjHJRyVafm9" target="_blank">Google 地圖</a>
           </div>
           <div><span class="tag">市集</span><span class="tag">親子</span></div>
         </div>
@@ -286,7 +364,7 @@
             <span class="pill">10/25</span>
             <a class="link" href="https://www.facebook.com/share/p/1FtYtBu9A9/" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">#雲耀星聲 決賽演唱會（斗六 表演廳）</div>
+          <div class="h">雲耀星聲 決賽演唱會（斗六 表演廳）</div>
           <div class="meta">
             <strong>時間</strong>：17:20– ｜ <strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林表演廳" target="_blank">Google 地圖</a>
           </div>
@@ -383,9 +461,36 @@
           </div>
           <div><span class="tag">展覽</span></div>
         </div>
-        </div>
+      </div>
+      
+      <div class="form-section">
+        <h2>協助活動發布</h2>
+        <p class="meta" style="margin-bottom:16px;">
+          您有雲林的活動資訊嗎？請填寫以下表單，我們會協助加入列表。
+        </p>
+        <form id="event-form">
+          <div class="form-group">
+            <label for="eventName">活動名稱</label>
+            <input type="text" id="eventName" name="eventName" required>
+          </div>
+          <div class="form-group">
+            <label for="eventRegion">活動地區</label>
+            <input type="text" id="eventRegion" name="eventRegion" required placeholder="例如：斗六、虎尾、全縣">
+          </div>
+          <div class="form-group">
+            <label for="eventTime">活動日期與時間</label>
+            <input type="text" id="eventTime" name="eventTime" required placeholder="例如：11/20 – 11/25 或 11/30 14:00-17:00">
+          </div>
+          <div class="form-group">
+            <label for="eventUrl">活動內容網址</label>
+            <input type="url" id="eventUrl" name="eventUrl" required placeholder="(請提供FB貼文或官方網站連結)">
+          </div>
+          <button type="submit" class="submit-btn" id="submit-button">送出</button>
+          <div id="form-status"></div>
+        </form>
+      </div>
       <div class="reset">
-        <label for="tab-all" id="reset-filters-label" title="清除篩選，顯示全部">回到全部</label>
+        <label for="tab-all" id="reset-filters-label" title="清除篩選，顯示全部">回頂端</label>
       </div>
     </div>
   </section>
@@ -441,16 +546,72 @@
           
           // 手動觸發一次篩選更新
           filterEvents(); 
+
+          // 新增：捲動到頂端 (因為 CSS 有 scroll-behavior: smooth)
+          window.scrollTo(0, 0);
         });
       }
 
       // 初始加載時執行一次篩選 (確保初始狀態正確)
       filterEvents(); 
 
+// ===== (新增) 表單提交邏輯 =====
+      const eventForm = document.getElementById('event-form');
+      const submitButton = document.getElementById('submit-button');
+      const formStatus = document.getElementById('form-status');
+      
+      // ⚠️ 請將 'YOUR_WEB_APP_URL_HERE' 替換為您部署的 Google Apps Script 網址
+      const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzznBEQ5n_QhBsSbeTEcyml5EmjVYT9Zxu7OVUOoARDRji2kMZZ8aOArrl7TaxdZLKSaA/exec'; // 網址不變
+
+      if (eventForm) {
+        eventForm.addEventListener('submit', (e) => {
+          e.preventDefault(); // 防止表單直接提交
+          
+          submitButton.disabled = true;
+          submitButton.textContent = '傳送中...';
+          formStatus.textContent = '';
+          formStatus.className = '';
+
+          const formData = new FormData(eventForm);
+
+          // (修改) 拿掉 mode: 'no-cors' 並改為讀取 JSON 回應
+          fetch(WEB_APP_URL, {
+            method: 'POST',
+            body: formData,
+            // mode: 'no-cors' // <-- (已移除) 這是導致我們看不到錯誤的元兇
+          })
+          .then(response => response.json()) // <-- (修改) 告訴 fetch 我們要讀取 JSON
+          .then(data => {
+            // (修改) 現在 'data' 是從 Apps Script 回傳的 { result: '...' } 物件
+            if (data.result === 'success') {
+              // 真的成功了
+              formStatus.textContent = '提交成功！感謝您的分享。';
+              formStatus.className = 'status-success';
+              eventForm.reset(); // 清空表單
+            } else {
+              // (關鍵) 伺服器回報了錯誤！
+              formStatus.textContent = '提交失敗：' + data.message;
+              formStatus.className = 'status-error';
+              // (關鍵) 在 F12 Console 中顯示詳細錯誤
+              console.error('Apps Script 執行錯誤:', data); 
+            }
+          })
+          .catch(error => {
+            // 處理網路層錯誤 (例如 CORS 政策錯誤或網址打錯)
+            formStatus.textContent = '提交失敗，請檢查網路連線或 F12 Console。';
+            formStatus.className = 'status-error';
+            console.error('Fetch 網路錯誤:', error);
+          })
+          .finally(() => {
+            // 無論成功或失敗，都恢復按鈕
+            submitButton.disabled = false;
+            submitButton.textContent = '送出';
+          });
+        });
+      }
+      // ===== (新增) 表單邏輯結束 =====
     });
   </script>
 
 </body>
-
 </html>
-
