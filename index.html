@@ -116,6 +116,7 @@
       margin: 0 0 12px 0;
       color: var(--brand);
       font-size: 20px;
+      text-align: center; /* (修改) 置中 */
     }
     .form-group {
       margin-bottom: 14px;
@@ -151,6 +152,8 @@
       cursor: pointer;
       box-shadow: 0 10px 24px rgba(20, 184, 166, .28);
       transition: all .2s;
+      display: block; /* (修改) 改為區塊元素 */
+      margin: 0 auto; /* (修改) 自動左右邊距 (置中) */
     }
     
     /* (修改) 增加 .cooldown 樣式 */
@@ -239,9 +242,9 @@
         
 <div id="result-meta" style="display:flex;align-items:center;gap:8px;margin:4px 0 8px;">
   <span id="result-count" class="pill">共 0 筆</span>
-  <span id="result-hint" class="meta" style="font-size:12px;color:var(--muted);">可用上方標籤快速篩選</span>
+  <span id="result-hint" class="meta" style="font-size: 13px; color: var(--brand); font-weight: 600;">可用上方標籤快速篩選</span>
 </div>
-<div id="empty-state" class="meta" style="display:none;padding:10px 12px;border:1px dashed #e5e7eb;border-radius:10px;background:#fafafa;">
+<div id="empty-state" class="meta" style="display:none; padding: 14px 12px; border: 1px dashed var(--brand); border-radius: 10px; background: var(--brand-50); color: var(--ink); text-align: center; font-weight: 600;">
   找不到符合條件的活動，請改變分類或地區條件。
 </div>
 </div>
@@ -492,8 +495,8 @@
       
       <div class="form-section">
         <h2>協助活動發布</h2>
-        <p class="meta" style="margin-bottom:16px;">
-          您有雲林的活動資訊嗎？請填寫以下表單，站長審核後會協助加入列表。
+        <p class="meta" style="margin-bottom:16px; text-align: center;">
+          您有雲林的活動資訊嗎？請填寫以下表單，我們會協助加入列表。
         </p>
         <form id="event-form">
           <div class="form-group">
