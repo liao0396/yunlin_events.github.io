@@ -6,13 +6,13 @@
   <title>雲林近期活動</title>
 <link rel="icon" href="data:;,"> <link rel="canonical" href="https://liao0396.github.io/yunlin_events.github.io/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="雲林近期活動｜親子・展覽・市集・地區篩選">
-<meta property="og:description" content="雲林近期活動整理，支援親子、展覽、市集、地區篩選與投稿表單。">
+<meta property="og:title" content="雲林近期活動｜親子・展覽・市集・體驗・表演・節慶・講座・運動・美食・地區篩選">
+<meta property="og:description" content="雲林近期活動整理，支援多樣分類、地區篩選與投稿表單。">
 <meta property="og:url" content="https://liao0396.github.io/yunlin_events.github.io/">
 <meta property="og:locale" content="zh_TW">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="雲林近期活動｜親子・展覽・市集・地區篩選">
-<meta name="twitter:description" content="雲林近期活動整理，支援親子、展覽、市集、地區篩選與投稿表單。">
+<meta name="twitter:title" content="雲林近期活動｜親子・展覽・市集・體驗・表演・節慶・講座・運動・美食・地區篩選">
+<meta name="twitter:description" content="雲林近期活動整理，支援多樣分類、地區篩選與投稿表單。">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <style>
     :root{
@@ -56,7 +56,12 @@
     /* 篩選 tabs */
     .tabs-container { margin: 12px 0; }
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
-    .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;}
+    .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;
+      /* (修復) 統一最小寬度並置中 */
+      min-width: 42px;
+      text-align: center;
+      box-sizing: border-box;
+    }
     .tabs-input{position:absolute;opacity:0;}
 
     /* 選中標籤的樣式 */
@@ -70,10 +75,9 @@
     /* 由 JavaScript 控制的隱藏樣式 */
     .card.hidden { display: none; }
 
-    /* (修改) 「雲林背包客」宣傳卡樣式 */
+    /* 「雲林背包客」宣傳卡樣式 */
     .promo-card { 
       display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; 
-      /* (修改) 更換為欒樹照片網址 */
       background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('https://scontent.fkhh1-1.fna.fbcdn.net/v/t39.30808-6/556571521_1342765467207015_8662957194887429051_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=LtKogtG3jGMQ7kNvwHpOxMR&_nc_oc=AdnbyI5IKJSyXHnSlkAD9bsBCBRF6KEqR6K1_pW9BcJRbFi0raZQSfHteXYAkKwzcnk&_nc_zt=23&_nc_ht=scontent.fkhh1-1.fna&_nc_gid=mwwYTz1gXSJgORELCZc8dw&oh=00_Afc_HA5BYjiA-_bno1F78wqAebC7B2TdRK0OcJPUxhd6Sw&oe=68FFB729');
       background-size: cover; background-position: center; 
       border-radius: 14px; padding: 16px; margin-top: 10px; border: 1px solid #e5e7eb; 
@@ -87,7 +91,7 @@
 
     /* 浮動回到頂端按鈕樣式 */
     .reset{position:fixed;right:16px;bottom:16px;z-index:3;}
-    #reset-filters-label { /* <-- 修正: 修正 ID (原為 reset-filters-button) */
+    #reset-filters-label {
       background:var(--brand);
       color:#fff;
       border: none;
@@ -99,11 +103,11 @@
     }
 
 
-    /* (修改) 背景圖層 (調高透明度，讓圖片更清楚) */
+    /* 背景圖層 */
     .bg{ position:absolute; inset:0; background-image: linear-gradient(to bottom, rgba(255,255,255,.20), rgba(255,255,255,.55)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/474215244_1150757506407813_301535675364554525_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RfbHEfvLgjIQ7kNvwHFyuGG&_nc_oc=AdniyRfY-jhxvhSVa0g69IeCJ8N07QUQvmpiRdnhfNG4u3TC-5aPmShQc34G3Sp-tBU&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=pptqzRa8MqXN6Y7xPqBpGg&oh=00_Afejui7XhR2ul46lmNOFVTehOxF6QyCynZwwVTY0JjsTAg&oe=68FF9FA6'); background-size:cover; background-position:center; }
     @media (prefers-reduced-data: no-preference){ .bg{ background-image: linear-gradient(to bottom, rgba(255,255,255,.30), rgba(255,255,255,.45)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/474215244_1150757506407813_301535675364554525_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RfbHEfvLgjIQ7kNvwHFyuGG&_nc_oc=AdniyRfY-jhxvhSVa0g69IeCJ8N07QUQvmpiRdnhfNG4u3TC-5aPmShQc34G3Sp-tBU&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=pptqzRa8MqXN6Y7xPqBpGg&oh=00_Afejui7XhR2ul46lmNOFVTehOxF6QyCynZwwVTY0JjsTAg&oe=68FF9FA6');} }
 
-    /* ===== (新增) 表單樣式 ===== */
+    /* ===== 表單樣式 ===== */
     .form-section {
       background: var(--panel);
       border: 1px solid #e5e7eb;
@@ -116,7 +120,7 @@
       margin: 0 0 12px 0;
       color: var(--brand);
       font-size: 20px;
-      text-align: center; /* (修改) 置中 */
+      text-align: center;
     }
     .form-group {
       margin-bottom: 14px;
@@ -134,7 +138,7 @@
       font-size: 15px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
-      box-sizing: border-box; /* 確保 100% 寬度包含 padding */
+      box-sizing: border-box;
     }
     .form-group input:focus {
       outline: none;
@@ -152,11 +156,10 @@
       cursor: pointer;
       box-shadow: 0 10px 24px rgba(20, 184, 166, .28);
       transition: all .2s;
-      display: block; /* (修改) 改為區塊元素 */
-      margin: 0 auto; /* (修改) 自動左右邊距 (置中) */
+      display: block;
+      margin: 0 auto;
     }
     
-    /* (修改) 增加 .cooldown 樣式 */
     .submit-btn:disabled, .submit-btn.cooldown {
       background: var(--muted);
       cursor: not-allowed;
@@ -166,10 +169,11 @@
     #form-status {
       font-size: 13px;
       margin-top: 10px;
+      text-align: center; /* (修復) 讓狀態訊息置中 */
     }
     .status-success { color: #065f46; } /* 成功 (綠) */
     .status-error { color: #991b1b; }   /* 失敗 (紅) */
-    /* ===== (新增) 表單樣式結束 ===== */
+    /* ===== 表單樣式結束 ===== */
 
   </style>
   </head>
@@ -288,7 +292,7 @@
           <div><span class="tag">展覽</span></div>
         </div>
 
-          <div class="card" data-cat="親子" data-region="虎尾">
+          <div class="card" data-cat="親子 表演" data-region="虎尾">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/01–10/26</span>
             <a class="link" href="https://development.yunlin.gov.tw/News_Content.aspx?n=1066&s=566053" target="_blank">活動頁 ↗</a>
@@ -299,7 +303,7 @@
             <div><strong>時間</strong>：週末場次</div>
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林布袋戲館" target="_blank">Google 地圖</a></div>
           </div>
-          <div><span class="tag">親子</span></div>
+          <div><span class="tag">親子</span><span class="tag">表演</span></div>
         </div>
                  
         <div class="card" data-cat="展覽" data-region="斗六">
@@ -422,7 +426,7 @@
           </div>
         </div>            
 
-          <div class="card" data-cat="展覽 親子" data-region="虎尾">
+          <div class="card" data-cat="展覽 親子 表演" data-region="虎尾">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）-10/26（日）</span>
             <a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a>
@@ -436,6 +440,7 @@
           <div>
               <span class="tag">展覽</span>
               <span class="tag">親子</span>
+              <span class="tag">表演</span>
           </div>
         </div>
 
@@ -533,7 +538,7 @@
           </div>
         </div>
           
-        <div class="card" data-cat="親子" data-region="斗六">
+        <div class="card" data-cat="親子 表演" data-region="斗六">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1FtYtBu9A9/" target="_blank">活動頁 ↗</a>
@@ -546,6 +551,7 @@
           </div>
           <div>
               <span class="tag">親子</span>
+              <span class="tag">表演</span>
           </div>
         </div>
 
@@ -820,17 +826,15 @@
             <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/Z5keU1XMx4jotC5T9" target="_blank">Google 地圖</a></div>
           </div>
           <div>
-              <span class="tag">親子</span>
+              <span class="tag">講座</span>
               <span class="tag">表演</span>
               <span class="tag">展覽</span>
               <span class="tag">體驗</span>
           </div>
         </div>
 
-        <div class="card" data-cat="親子 體驗 運動" data-region="古坑">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-            <span class="pill">2025/11/15（日）</span>
-            <a class="link" href="https://www.facebook.com/share/p/17jFfUEh3D/" target="_blank">活動頁 ↗</a>
+        <div class="card" data-cat="親子 體驗 運動" data-region="斗六"> <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span class="pill">2025/11/15（六）</span> <a class="link" href="https://www.facebook.com/share/p/17jFfUEh3D/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">📖 社區繪本文化之旅 ※需報名、費用※</div>
           <div class="meta">
@@ -844,14 +848,10 @@
               <span class="tag">運動</span>
           </div>
         </div>
-        </div>
-</div>
-
-      
+        
         <div class="card" data-cat="親子 表演" data-region="古坑">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-            <span class="pill">2025/11/15（日）</span>
-            <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
+            <span class="pill">2025/11/15（六）</span> <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
           </div>
           <div class="h">藝術宅急便－壞鞋子舞蹈劇場</div>
           <div class="meta">
@@ -883,14 +883,13 @@
           </div>
         </div>
       
-                    <div class="card" data-cat="運動 體驗" data-region="台西">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div class="card" data-cat="運動 體驗" data-region="臺西"> <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2026/02/08（日）</span>
             <a class="link" href="https://bao-ming.com/eb/content/6721/" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">🏅 2026雲林全國馬拉松　※需報名、費用※</div>
+          <div class="h">🏅 2026雲林全國馬ラソン　※需報名、費用※</div>
           <div class="meta">
-            <div><strong>地區</strong>：台西鄉-台西溪頂明聖宮 - 魁星祖廟</div>
+            <div><strong>地區</strong>：臺西鄉-台西溪頂明聖宮 - 魁星祖廟</div>
             <div><strong>時間</strong>：06:00</div>
             <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/9fKN3XoDhjKkiZSA9" target="_blank">Google 地圖</a></div>
           </div>
@@ -919,8 +918,7 @@
           
             <datalist id="region-list">
               <option value="全縣"><option value="斗六"><option value="斗南"><option value="虎尾"><option value="西螺">
-              <option value="土庫"><option value="北港"><option value="古坑"><option value="大埤"><option value_counts="莿桐">
-              <option value="林內"><option value="二崙"><option value="崙背"><option value="麥寮"><option value="東勢">
+              <option value="土庫"><option value="北港"><option value="古坑"><option value="大埤"><option value="莿桐"> <option value="林內"><option value="二崙"><option value="崙背"><option value="麥寮"><option value="東勢">
               <option value="褒忠"><option value="臺西"><option value="元長"><option value="四湖"><option value="口湖"><option value="水林">
             </datalist>
           </div>
@@ -1099,7 +1097,7 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
 
             } else {
               // 伺服器回報了錯誤！
-              formStatus.textContent = '提交失敗：' + data.message;
+              formStatus.textContent = '提交失敗：' + (data.message || '未知錯誤'); // (修復)
               formStatus.className = 'status-error';
               console.error('Apps Script 執行錯誤:', data);
               
@@ -1135,28 +1133,3 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
     </noscript>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
