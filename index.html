@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>雲林近期活動</title>
-<link rel="canonical" href="https://liao0396.github.io/yunlin_events.github.io/">
+<link rel="icon" href="data:;,"> <link rel="canonical" href="https://liao0396.github.io/yunlin_events.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="雲林近期活動｜親子・展覽・市集・地區篩選">
 <meta property="og:description" content="雲林近期活動整理，支援親子、展覽、市集、地區篩選與投稿表單。">
@@ -70,8 +70,16 @@
     /* 由 JavaScript 控制的隱藏樣式 */
     .card.hidden { display: none; }
 
-    /* 「雲林背包客」宣傳卡樣式 */
-    .promo-card { display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; background-color: #f0f0f0; background-size: cover; background-position: center; border-radius: 14px; padding: 16px; margin-top: 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(2,6,23,.05); transition: transform .2s ease, box-shadow .2s ease; }
+    /* (修改) 「雲林背包客」宣傳卡樣式 */
+    .promo-card { 
+      display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; 
+      /* (修改) 更換為欒樹照片網址 */
+      background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('https://scontent.fkhh1-1.fna.fbcdn.net/v/t39.30808-6/556571521_1342765467207015_8662957194887429051_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=LtKogtG3jGMQ7kNvwHpOxMR&_nc_oc=AdnbyI5IKJSyXHnSlkAD9bsBCBRF6KEqR6K1_pW9BcJRbFi0raZQSfHteXYAkKwzcnk&_nc_zt=23&_nc_ht=scontent.fkhh1-1.fna&_nc_gid=mwwYTz1gXSJgORELCZc8dw&oh=00_Afc_HA5BYjiA-_bno1F78wqAebC7B2TdRK0OcJPUxhd6Sw&oe=68FFB729');
+      background-size: cover; background-position: center; 
+      border-radius: 14px; padding: 16px; margin-top: 10px; border: 1px solid #e5e7eb; 
+      box-shadow: 0 4px 12px rgba(2,6,23,.05); 
+      transition: transform .2s ease, box-shadow .2s ease; 
+    }
     .promo-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2,6,23,.08); }
     .promo-avatar { width: 60px; height: 60px; border-radius: 999px; object-fit: cover; border: 2px solid rgba(255,255,255,.8); flex-shrink: 0; }
     .promo-text { font-size: 16px; font-weight: 600; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
@@ -91,9 +99,9 @@
     }
 
 
-    /* 背景圖層 */
-    .bg{ position:absolute; inset:0; background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('bg.jpg'); background-size:cover; background-position:center; }
-    @media (prefers-reduced-data: no-preference){ .bg{ background-image: linear-gradient(to bottom, rgba(255,255,255,.92), rgba(255,255,255,.96)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256');} }
+    /* (修改) 背景圖層 (調高透明度，讓圖片更清楚) */
+    .bg{ position:absolute; inset:0; background-image: linear-gradient(to bottom, rgba(255,255,255,.20), rgba(255,255,255,.55)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/474215244_1150757506407813_301535675364554525_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RfbHEfvLgjIQ7kNvwHFyuGG&_nc_oc=AdniyRfY-jhxvhSVa0g69IeCJ8N07QUQvmpiRdnhfNG4u3TC-5aPmShQc34G3Sp-tBU&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=pptqzRa8MqXN6Y7xPqBpGg&oh=00_Afejui7XhR2ul46lmNOFVTehOxF6QyCynZwwVTY0JjsTAg&oe=68FF9FA6'); background-size:cover; background-position:center; }
+    @media (prefers-reduced-data: no-preference){ .bg{ background-image: linear-gradient(to bottom, rgba(255,255,255,.30), rgba(255,255,255,.45)), url('https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/474215244_1150757506407813_301535675364554525_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RfbHEfvLgjIQ7kNvwHFyuGG&_nc_oc=AdniyRfY-jhxvhSVa0g69IeCJ8N07QUQvmpiRdnhfNG4u3TC-5aPmShQc34G3Sp-tBU&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=pptqzRa8MqXN6Y7xPqBpGg&oh=00_Afejui7XhR2ul46lmNOFVTehOxF6QyCynZwwVTY0JjsTAg&oe=68FF9FA6');} }
 
     /* ===== (新增) 表單樣式 ===== */
     .form-section {
@@ -187,8 +195,7 @@
         <img alt="LINE 社群 QR" src="https://i.meee.com.tw/zV4qoCL.jpg" style="width:120px;height:120px;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover;">
       </div>
 
-      <a href="https://www.facebook.com/yunlinbpk" target="_blank" rel="noopener" class="promo-card" 
-         style="background-image: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(https://via.placeholder.com/800x300.png?text=請放上雲林背包客的橫幅照片);">
+      <a href="https://www.facebook.com/yunlinbpk" target="_blank" rel="noopener" class="promo-card">
         <img src="https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/545080694_1324433282373567_1995633004604961700_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=25u95x334-0Q7kNvwE5C2DD&_nc_oc=AdmfJ6r3k5NtiJDVmBVGtVjvSo5ITF6Y_Wv3c_JiyDA2DR3hQPwMkmNHT5uhZM6NhUc&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=714U3bbwCjS_wReA7fVK9g&oh=00_Afe2K5NWRJ5KnLHVVgBRoI_W20fIHN3SmHLIyqDk47oWsA&oe=68FEA256" 
              alt="雲林背包客" class="promo-avatar">
         <span class="promo-text">
@@ -499,7 +506,7 @@
           
             <datalist id="region-list">
               <option value="全縣"><option value="斗六"><option value="斗南"><option value="虎尾"><option value="西螺">
-              <option value="土庫"><option value="北港"><option value="古坑"><option value="大埤"><option value="莿桐">
+              <option value="土庫"><option value="北港"><option value="古坑"><option value="大埤"><option value_counts="莿桐">
               <option value="林內"><option value="二崙"><option value="崙背"><option value="麥寮"><option value="東勢">
               <option value="褒忠"><option value="臺西"><option value="元長"><option value="四湖"><option value="口湖"><option value="水林">
             </datalist>
@@ -516,6 +523,11 @@
           <div id="form-status"></div>
         </form>
       </div>
+      
+      <div id="visitor-counter" style="text-align:center; padding:24px 0 10px; font-size:13px; color:var(--muted); border-top: 1px solid #e5e7eb; margin-top: 24px;">
+        閱覽人數：<span id="counter-value">載入中...</span>
+      </div>
+
       <div class="reset">
         <label for="tab-all" id="reset-filters-label" title="清除篩選，顯示全部">回頂端</label>
       </div>
@@ -589,14 +601,36 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
       // 初始加載時執行一次篩選 (確保初始狀態正確)
       filterEvents(); 
 
+      // ⚠️ (已固定) Apps Script 網址
+      const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzznBEQ5n_QhBsSbeTEcyml5EmjVYT9Zxu7OVUOoARDRji2kMZZ8aOArrl7TaxdZLKSaA/exec'; 
+
+      // ===== (新增) 閱覽人數計數器 =====
+      const counterElement = document.getElementById('counter-value');
+      if (counterElement) {
+        // 網頁載入時，發送 GET 請求到 Apps Script
+        fetch(WEB_APP_URL) 
+          .then(response => response.json())
+          .then(data => {
+            if (data.result === 'success' && data.count) {
+              // 格式化數字 (例如: 1,234)
+              counterElement.textContent = data.count.toLocaleString();
+            } else {
+              counterElement.textContent = 'N/A';
+            }
+          })
+          .catch(error => {
+            console.error('Counter Fetch Error:', error);
+            counterElement.textContent = '無法載入';
+          });
+      }
+      // ===== 閱覽人數計數器結束 =====
+
+
       // ===== (修改) 表單提交邏輯 (加入冷卻 Flag 和提醒) =====
       const eventForm = document.getElementById('event-form');
       const submitButton = document.getElementById('submit-button');
       const formStatus = document.getElementById('form-status');
       
-      // ⚠️ (已固定) Apps Script 網址
-      const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzznBEQ5n_QhBsSbeTEcyml5EmjVYT9Zxu7OVUOoARDRji2kMZZ8aOArrl7TaxdZLKSaA/exec'; 
-
       let isCoolingDown = false; // (新增) 冷卻狀態旗標
 
       if (eventForm) {
