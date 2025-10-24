@@ -117,6 +117,11 @@
 
     /* 由 JavaScript 控制的隱藏樣式 */
     .card.hidden { display: none; }
+    
+    /* (新增) 隱藏過期活動 */
+    .card.expired-hidden {
+      display: none !important;
+    }
 
     /* 「雲林背包客」宣傳卡樣式 */
     .promo-card { 
@@ -254,7 +259,14 @@
         </span>
       </a>
 
-<div class="tabs-container">
+      <div class="tabs-container">
+        <div class="tabs">
+          <input type="radio" name="date-filter" id="tab-date-all" value="all" checked class="tabs-input"><label for="tab-date-all">全部日期</label>
+          <input type="radio" name="date-filter" id="tab-date-today" value="today" class="tabs-input"><label for="tab-date-today">今日活動</label>
+        </div>
+      </div>
+
+      <div class="tabs-container">
         <div class="tabs">
           <input type="radio" name="cats" id="tab-all" value="all" checked class="tabs-input"><label for="tab-all">全部</label>
           <input type="radio" name="cats" id="tab-family" value="親子" class="tabs-input"><label for="tab-family">親子</label>
@@ -304,7 +316,7 @@
       </div>
       <div class="grid" data-scope>
 
-<div class="card" data-cat="市集 親子" data-region="全縣">
+<div class="card" data-cat="市集 親子" data-region="全縣" data-start="2025-09-08" data-end="2025-11-30">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/09/08（一）–2025/11/30（日）</span>
 <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/News/N000001773" target="_blank">活動頁 ↗</a>
@@ -322,7 +334,7 @@
  <button class="share-btn">分享 ➦</button>
  </div>
           
-         <div class="card" data-cat="展覽" data-region="北港">
+         <div class="card" data-cat="展覽" data-region="北港" data-start="2025-09-13" data-end="2025-11-05">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/09/13（六）–2025/11/05（三）</span>
             <a class="link" href="https://news.st-media.com.tw/news/53543" target="_blank">活動頁 ↗</a>
@@ -337,7 +349,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-          <div class="card" data-cat="親子 表演" data-region="虎尾">
+          <div class="card" data-cat="親子 表演" data-region="虎尾" data-start="2025-10-01" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">10/01–10/26</span>
             <a class="link" href="https://development.yunlin.gov.tw/News_Content.aspx?n=1066&s=566053" target="_blank">活動頁 ↗</a>
@@ -352,7 +364,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
                  
-        <div class="card" data-cat="展覽" data-region="斗六">
+        <div class="card" data-cat="展覽" data-region="斗六" data-start="2025-10-18" data-end="2025-10-29">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/18（六）–2025/10/29（三）</span>
             <a class="link" href="https://tour.yunlin.gov.tw/wt-front/Activity/Index/A000000429" target="_blank">活動頁 ↗</a>
@@ -367,7 +379,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="展覽" data-region="北港">
+        <div class="card" data-cat="展覽" data-region="北港" data-start="2025-10-18" data-end="2025-11-29">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/18（六）–2025/11/29（六）</span>
             <a class="link" href="https://tw.news.yahoo.com/%E9%99%B3%E7%8E%84%E8%8C%82%E6%B0%B4%E5%A2%A8%E5%B0%8D%E8%A9%B1%E5%B1%B1%E6%B5%B7-%E5%8C%97%E6%B8%AF%E6%96%87%E5%8C%96%E4%B8%AD%E5%BF%83%E5%B1%95%E6%BC%94%E7%8E%84%E5%A2%83%E5%A2%A8%E9%9F%BB-150957430.html" target="_blank">活動頁 ↗</a>
@@ -382,7 +394,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="市集 親子 節慶 體驗" data-region="斗六">
+        <div class="card" data-cat="市集 親子 節慶 體驗" data-region="斗六" data-start="2025-10-24" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/24（五）-2025/10/25（六）</span>
             <a class="link" href="https://tour.yunlin.gov.tw/wt-front/activity/News/N000001797" target="_blank">活動頁 ↗</a>
@@ -402,7 +414,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="市集 體驗 親子" data-region="虎尾">
+        <div class="card" data-cat="市集 體驗 親子" data-region="虎尾" data-start="2025-10-24" data-end="2025-10-24">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/24（五）</span>
             <a class="link" href="https://www.instagram.com/p/DQEQwICEio0/" target="_blank">活動頁 ↗</a>
@@ -421,7 +433,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="展覽 講座 體驗" data-region="虎尾">
+        <div class="card" data-cat="展覽 講座 體驗" data-region="虎尾" data-start="2025-10-24" data-end="2025-10-24">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/24（五）</span>
             <a class="link" href="https://www.instagram.com/p/DQEQwICEio0/" target="_blank">活動頁 ↗</a>
@@ -440,7 +452,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-          <div class="card" data-cat="節慶 市集 親子 體驗" data-region="二崙">
+          <div class="card" data-cat="節慶 市集 親子 體驗" data-region="二崙" data-start="2025-10-24" data-end="2025-10-24">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/24（五）</span>
             <a class="link" href="https://www.facebook.com/share/p/1AT2BaixvK/" target="_blank">活動頁 ↗</a>
@@ -449,7 +461,7 @@
           <div class="meta">
             <div><strong>地區</strong>：二崙鄉-崙西社區公園</div>
             <div><strong>時間</strong>：09:30-12:30</div>
-            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/NyEUZ7fKWbg74J6C7" target="_blank">Google 地圖（範例）</a></div>
+            <div><strong>地圖</strong>：<a class="link" href="https://maps.app.goo.gl/NyEUZ7fKWbg74J6C7" target="_blank">Google 地圖</a></div>
           </div>
           <div>
               <span class="tag">節慶</span>
@@ -460,7 +472,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>      
           
-        <div class="card" data-cat="市集 節慶 表演" data-region="西螺">
+        <div class="card" data-cat="市集 節慶 表演" data-region="西螺" data-start="2025-10-25" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）-10/26（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/1CdynHY2cy/" target="_blank">活動頁 ↗</a>
@@ -479,7 +491,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>            
 
-          <div class="card" data-cat="展覽 親子 表演" data-region="虎尾">
+          <div class="card" data-cat="展覽 親子 表演" data-region="虎尾" data-start="2025-10-25" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）-10/26（日）</span>
             <a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a>
@@ -498,7 +510,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-          <div class="card" data-cat="展覽 市集 體驗" data-region="虎尾">
+          <div class="card" data-cat="展覽 市集 體驗" data-region="虎尾" data-start="2025-10-25" data-end="2025-10-27">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）-2025/10/27（一）</span>
             <a class="link" href="https://www.facebook.com/yunlin.puppet/posts/1222612036571914/" target="_blank">活動頁 ↗</a>
@@ -517,7 +529,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-          <div class="card" data-cat="節慶 市集 表演 親子 體驗" data-region="虎尾">
+          <div class="card" data-cat="節慶 市集 表演 親子 體驗" data-region="虎尾" data-start="2025-10-25" data-end="2025-10-27">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）-2025/10/27（一）</span>
             <a class="link" href="https://www.facebook.com/iHuwei/posts/-%E8%99%8E%E5%B0%BE%E6%AF%9B%E5%B7%BE%E7%AF%80-1025-%E5%80%92%E6%95%B8%E8%A8%88%E6%99%82%E8%B2%B7%E7%88%86%E7%9C%8B%E7%88%86%E7%8E%A9%E7%88%86%E6%BA%96%E5%82%99%E5%A5%BD%E8%BF%8E%E6%8E%A5%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%A5%BD%E7%8E%A9%E7%9A%84-2025%E8%99%8E%E5%B0%BE%E6%AF%9B%E5%B7%BE%E7%AF%80%E4%BA%86%E5%97%8E%E9%80%B1%E6%9C%AB%E4%BE%86%E4%B8%80%E8%B6%9F%E8%99%8E%E5%B0%BE%E8%AE%93%E4%BD%A0%E6%BB%BF%E8%BC%89%E8%80%8C%E6%AD%B8-%E6%B4%BB%E5%8B%95%E5%9C%B0%E9%BB%9E-%E8%99%8E%E5%B0%BE%E9%AB%98%E9%90%B5%E7%89%B9%E5%AE%9A%E5%8D%80-%E7%AB%99%E5%89%8D%E6%9D%B1%E8%B7%AF%E8%88%87%E5%BB%BA%E6%88%90%E8%B7%AF/1244274297732338/?locale=zh_TW" target="_blank">活動頁 ↗</a>
@@ -538,12 +550,12 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="體驗 節慶 親子" data-region="虎尾">
+        <div class="card" data-cat="體驗 節慶 親子" data-region="虎尾" data-start="2025-10-25" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/ylccb.gov.tw/posts/%E5%8D%9A%E7%89%A9%E9%A4%A8%E9%A9%9A%E9%AD%82%E5%A4%9C%E5%A4%9C%E6%8E%A2%E9%9B%B2%E6%9E%97%E5%B8%83%E8%A2%8B%E6%88%B2%E9%A4%A8%E7%95%B6%E5%A4%9C%E5%B9%95%E4%BD%8E%E5%9E%82%E6%88%B2%E5%81%B6%E7%94%A6%E9%86%92%E5%82%B3%E8%AA%AA%E5%8F%AA%E8%A6%81%E8%86%BD%E6%95%A2%E8%B5%B0%E9%80%B2%E9%80%99%E5%BA%A7%E6%9A%97%E5%BD%B1%E4%B8%AD%E7%9A%84%E6%88%B2%E9%A4%A8%E5%B0%B1%E6%9C%83%E8%A2%AB%E6%8D%B2%E5%85%A5%E4%B8%80%E5%A0%B4%E9%97%9C%E6%96%BC%E8%A8%98%E6%86%B6%E9%9D%88%E9%AD%82%E8%88%87%E7%9C%9F%E7%9B%B8%E7%9A%84%E8%A7%A3%E8%AC%8E%E5%86%92%E9%9A%AA%E4%BB%8A%E5%B9%B4%E8%90%AC%E8%81%96%E7%AF%80%E6%88%91%E5%80%91%E4%B8%8D%E7%B5%A6%E7%B3%96%E5%8F%AA%E7%B5%A6%E4%BB%BB%E5%8B%99%EF%B8%8F%E5%8C%96%E8%BA%AB%E5%8B%87%E8%80%85%E4%B8%80/1246528214186406/" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">🎃👻【博物館驚魂夜：夜探雲林布袋戲館】👻🎃　※需報名、費用※</div>
+          <div class="h">🎃👻【博物館驚魂夜：夜探雲林布袋戲館】👻🎃　<br>※需報名、費用※</div>
           <div class="meta">
             <div><strong>地區</strong>：虎尾鎮-雲林布袋戲館</div>        
             <div><strong>時間</strong>：19:00-20:00</div> 
@@ -557,7 +569,7 @@
         <button class="share-btn">分享 ➦</button>
         </div> 
           
-        <div class="card" data-cat="市集 美食 表演 節慶 親子 體驗" data-region="土庫">
+        <div class="card" data-cat="市集 美食 表演 節慶 親子 體驗" data-region="土庫" data-start="2025-10-25" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/share/v/16VfKHgmBN/" target="_blank">活動頁 ↗</a>
@@ -579,7 +591,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="親子 表演" data-region="土庫">
+        <div class="card" data-cat="親子 表演" data-region="土庫" data-start="2025-10-25" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1FNUMkuJZm/" target="_blank">活動頁 ↗</a>
@@ -597,7 +609,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="親子 表演" data-region="斗六">
+        <div class="card" data-cat="親子 表演" data-region="斗六" data-start="2025-10-25" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1FtYtBu9A9/" target="_blank">活動頁 ↗</a>
@@ -615,7 +627,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="展覽 體驗" data-region="土庫">
+        <div class="card" data-cat="展覽 體驗" data-region="土庫" data-start="2025-10-25" data-end="2025-10-25">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/25（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1A1Cq7FU4r/" target="_blank">活動頁 ↗</a>
@@ -633,7 +645,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="親子 表演" data-region="斗南">
+        <div class="card" data-cat="親子 表演" data-region="斗南" data-start="2025-10-26" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/26（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
@@ -651,7 +663,7 @@
         <button class="share-btn">分享 ➦</button>
         </div> 
 
-        <div class="card" data-cat="運動 市集 親子 體驗 美食" data-region="西螺">
+        <div class="card" data-cat="運動 市集 親子 體驗 美食" data-region="西螺" data-start="2025-10-26" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/26（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
@@ -672,7 +684,7 @@
         <button class="share-btn">分享 ➦</button>
         </div> 
           
-        <div class="card" data-cat="市集 美食 親子 體驗" data-region="虎尾">
+        <div class="card" data-cat="市集 美食 親子 體驗" data-region="虎尾" data-start="2025-10-26" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/26（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/178KNgvifJ/" target="_blank">活動頁 ↗</a>
@@ -692,7 +704,7 @@
         <button class="share-btn">分享 ➦</button>
         </div> 
 
-        <div class="card" data-cat="市集 表演 親子 體驗" data-region="崙背">
+        <div class="card" data-cat="市集 表演 親子 體驗" data-region="崙背" data-start="2025-10-26" data-end="2025-10-26">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/26（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/19ymWToTkr/" target="_blank">活動頁 ↗</a>
@@ -712,7 +724,7 @@
         <button class="share-btn">分享 ➦</button>
         </div> 
           
-        <div class="card" data-cat="講座" data-region="斗六">
+        <div class="card" data-cat="講座" data-region="斗六" data-start="2025-10-30" data-end="2025-10-30">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/10/30（四）</span>
             <a class="link" href="https://www.facebook.com/share/p/16R3MchbcD/" target="_blank">活動頁 ↗</a>
@@ -729,7 +741,7 @@
         <button class="share-btn">分享 ➦</button>
          </div> 
           
-        <div class="card" data-cat="講座 親子 體驗" data-region="斗南">
+        <div class="card" data-cat="講座 親子 體驗" data-region="斗南" data-start="2025-11-01" data-end="2025-11-01">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/01（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1BPh71dJ5W/" target="_blank">活動頁 ↗</a>
@@ -748,7 +760,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="表演 親子 體驗" data-region="斗六">
+        <div class="card" data-cat="表演 親子 體驗" data-region="斗六" data-start="2025-11-01" data-end="2025-11-01">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/01（六）</span>
             <a class="link" href="https://www.facebook.com/2025youngyunlin" target="_blank">活動頁 ↗</a>
@@ -767,7 +779,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="節慶 市集 美食 親子 體驗 表演" data-region="四湖">
+        <div class="card" data-cat="節慶 市集 美食 親子 體驗 表演" data-region="四湖" data-start="2025-11-01" data-end="2025-11-01">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/01（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1GUnC7m8oX/" target="_blank">活動頁 ↗</a>
@@ -789,7 +801,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="市集 美食 表演 運動 體驗" data-region="口湖">
+        <div class="card" data-cat="市集 美食 表演 運動 體驗" data-region="口湖" data-start="2025-11-01" data-end="2025-11-01">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/01（六）</span>
             <a class="link" href="" target="_blank"></a>
@@ -810,7 +822,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南">
+        <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南" data-start="2025-11-08" data-end="2025-11-08">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/08（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/1A5xetH5VJ/" target="_blank">活動頁 ↗</a>
@@ -830,7 +842,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
             
-        <div class="card" data-cat="表演 親子 節慶 體驗" data-region="水林">
+        <div class="card" data-cat="表演 親子 節慶 體驗" data-region="水林" data-start="2025-11-09" data-end="2025-11-09">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/09（日）</span>
             <a class="link" href="https://shuilin.yunlin.gov.tw/News_Content.aspx?n=7193&sms=14728&s=561315" target="_blank">活動頁 ↗</a>
@@ -850,7 +862,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
             
-        <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南">
+        <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南" data-start="2025-11-09" data-end="2025-11-09">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/09（日）</span>
             <a class="link" href="https://www.facebook.com/share/p/1A5xetH5VJ/" target="_blank">活動頁 ↗</a>
@@ -870,7 +882,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="親子 表演" data-region="大埤">
+        <div class="card" data-cat="親子 表演" data-region="大埤" data-start="2025-11-14" data-end="2025-11-14">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/14（五）</span>
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
@@ -888,7 +900,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
           
-        <div class="card" data-cat="講座 表演 展覽 體驗" data-region="虎尾">
+        <div class="card" data-cat="講座 表演 展覽 體驗" data-region="虎尾" data-start="2025-11-14" data-end="2025-11-15">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/14（五）-11/15（六）</span>
             <a class="link" href="https://www.facebook.com/permalink.php?story_fbid=pfbid0tN974kEu8vxbv2J8zkxv5r5AN2LKnwe6bvJXiQNcwkDzVqEUouGh9aN1YVq4W1mml&id=61557283581425&rdid=Ud7VSSBMlRP8IBjX#" target="_blank">活動頁 ↗</a>
@@ -908,12 +920,12 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="親子 體驗 運動" data-region="斗六"> 
+        <div class="card" data-cat="親子 體驗 運動" data-region="斗六" data-start="2025-11-15" data-end="2025-11-15"> 
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/15（六）</span> 
             <a class="link" href="https://www.facebook.com/share/p/17jFfUEh3D/" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">📖 社區繪本文化之旅 ※需報名、費用※</div>
+          <div class="h">📖 社區繪本文化之旅 <br>※需報名、費用※</div>
           <div class="meta">
             <div><strong>地區</strong>：斗六市-松花坡園藝</div>
             <div><strong>時間</strong>：09:00-16:00</div>
@@ -927,7 +939,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
         
-        <div class="card" data-cat="親子 表演" data-region="古坑">
+        <div class="card" data-cat="親子 表演" data-region="古坑" data-start="2025-11-15" data-end="2025-11-15">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/11/15（六）</span> 
             <a class="link" href="https://www.facebook.com/share/p/173mhyrpN6/" target="_blank">活動頁 ↗</a>
@@ -945,7 +957,7 @@
         <button class="share-btn">分享 ➦</button>
         </div>
 
-        <div class="card" data-cat="市集 體驗 親子" data-region="斗六">
+        <div class="card" data-cat="市集 體驗 親子" data-region="斗六" data-start="2025-12-06" data-end="2025-12-06">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2025/12/06（六）</span>
             <a class="link" href="https://www.facebook.com/share/p/16Y9vYJ7q3/" target="_blank">活動頁 ↗</a>
@@ -964,12 +976,12 @@
         <button class="share-btn">分享 ➦</button>
         </div>
       
-          <div class="card" data-cat="運動 體驗" data-region="臺西"> 
+          <div class="card" data-cat="運動 體驗" data-region="臺西" data-start="2026-02-08" data-end="2026-02-08"> 
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span class="pill">2026/02/08（日）</span>
             <a class="link" href="https://bao-ming.com/eb/content/6721/" target="_blank">活動頁 ↗</a>
           </div>
-          <div class="h">🏅 2026年雲林全國馬拉松　※需報名、費用※</div>
+          <div class="h">🏅 2026年雲林全國馬拉松　<br>※需報名、費用※</div>
           <div class="meta">
             <div><strong>地區</strong>：臺西鄉-台西溪頂明聖宮 - 魁星祖廟</div>
             <div><strong>時間</strong>：06:00</div>
@@ -1033,50 +1045,90 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const allFilters = document.querySelectorAll('.tabs-input'); // 所有 radio 按鈕
-      const eventCards = document.querySelectorAll('.grid[data-scope] .card');
       const resetLabel = document.getElementById('reset-filters-label');
-
-      // (新增) 動態為卡片加上 ID
-      eventCards.forEach((card, index) => {
+      
+      // (新增) 獲取 "今天" 的日期字串 (YYYY-MM-DD)
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0'); // 月份 0-11，所以+1
+      const dd = String(today.getDate()).padStart(2, '0');
+      const todayString = `${yyyy}-${mm}-${dd}`;
+      
+      // (新增) 步驟1: 頁面載入時，立即隱藏所有過期活動
+      const allEventCards = document.querySelectorAll('.grid[data-scope] .card');
+      allEventCards.forEach((card, index) => {
+        // (新增) 同時為卡片加上 ID，供分享錨點使用
         card.id = `event-card-${index}`;
+        
+        // (新增) 隱藏過期
+        const endDate = card.dataset.end;
+        if (endDate && endDate < todayString) {
+          card.classList.add('expired-hidden');
+        }
       });
+
 
       // --- 篩選邏輯 ---
       function filterEvents() {
+        // (修改) 每次篩選時，都只抓取 "未過期" 的卡片
+        const eventCards = document.querySelectorAll('.grid[data-scope] .card:not(.expired-hidden)');
+
+        // (修改) 獲取三組篩選器的值
+        const selectedDate = document.querySelector('input[name="date-filter"]:checked').value;
         const selectedCategory = document.querySelector('input[name="cats"]:checked').value;
         const selectedRegion = document.querySelector('input[name="region"]:checked').value;
 
         eventCards.forEach(card => {
-          const cardCategory = card.dataset.cat || ''; // 卡片的分類 (可能有多個)
-          const cardRegion = card.dataset.region || '';   // 卡片的地區
+          const cardCategory = card.dataset.cat || '';
+          const cardRegion = card.dataset.region || '';
+          
+          // --- 判斷 (1): 日期 ---
+          let dateMatch = false;
+          const startDate = card.dataset.start;
+          const endDate = card.dataset.end; // 已在 HTML 中確保 data-end 存在
 
-          // 檢查分類是否匹配
+          if (selectedDate === 'all') {
+            dateMatch = true;
+          } else if (selectedDate === 'today') {
+            // 檢查今天是否在活動的開始和結束日期之間
+            if (startDate && endDate) {
+              if (todayString >= startDate && todayString <= endDate) {
+                dateMatch = true;
+              }
+            } else if (startDate) { 
+              // 備用：如果只有開始日期 (單日活動)
+              if (todayString === startDate) {
+                dateMatch = true;
+              }
+            }
+          }
+
+          // --- 判斷 (2): 類型 ---
           const categoryMatch = selectedCategory === 'all' || cardCategory.split(' ').includes(selectedCategory);
           
-          // 檢查地區是否匹配 (修正邏輯)
+          // --- 判斷 (3): 地區 ---
           let regionMatch = false;
           if (selectedRegion === 'all') {
-            regionMatch = true; // 選 "全縣" 時，所有地區都匹配
+            regionMatch = true;
           } else {
-            // 選特定地區時，只匹配該地區 (不包含標示為"全縣"的卡片)
             regionMatch = cardRegion === selectedRegion && cardRegion !== '全縣'; 
           }
 
-          // 同時滿足才顯示
-          if (categoryMatch && regionMatch) {
+          // --- 最終判斷 ---
+          if (dateMatch && categoryMatch && regionMatch) {
             card.classList.remove('hidden');
           } else {
             card.classList.add('hidden');
           }
         });
       
-// 更新統計與空狀態
-const visible = Array.from(eventCards).filter(c => !c.classList.contains('hidden')).length;
-const countEl = document.getElementById('result-count');
-const emptyEl = document.getElementById('empty-state');
-if (countEl) countEl.textContent = `共 ${visible} 筆`;
-if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
-}
+        // (修改) 更新統計 (eventCards 已經排除了過期卡)
+        const visible = Array.from(eventCards).filter(c => !c.classList.contains('hidden')).length;
+        const countEl = document.getElementById('result-count');
+        const emptyEl = document.getElementById('empty-state');
+        if (countEl) countEl.textContent = `共 ${visible} 筆`;
+        if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
+      }
 
       // --- 綁定事件監聽 ---
       allFilters.forEach(filter => {
@@ -1086,6 +1138,7 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
       // --- 處理重置按鈕 ---
       if (resetLabel) {
         resetLabel.addEventListener('click', (event) => {
+          document.getElementById('tab-date-all').checked = true; // (新增) 重置日期
           document.getElementById('tab-all').checked = true; 
           document.getElementById('tab-loc-all').checked = true;
           filterEvents(); 
@@ -1104,11 +1157,10 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
       const counterTotalEl = document.getElementById('counter-total');
       
       if (counterTodayEl && counterTotalEl) {
-        // 網頁載入時，發送 GET 請求到 Apps Script
         fetch(WEB_APP_URL) 
           .then(response => response.json())
           .then(data => {
-            if (data.result === 'success' && data.totalCount !== undefined && data.todayCount !== undefined) { // 檢查屬性是否存在
+            if (data.result === 'success' && data.totalCount !== undefined && data.todayCount !== undefined) { 
               counterTodayEl.textContent = data.todayCount.toLocaleString();
               counterTotalEl.textContent = data.totalCount.toLocaleString();
             } else {
@@ -1128,11 +1180,11 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
       const shareButtons = document.querySelectorAll('.share-btn');
       shareButtons.forEach(btn => {
         btn.addEventListener('click', async (e) => {
-          e.preventDefault(); // 防止點擊卡片（如果卡片是連結的話）
-          e.stopPropagation(); // 停止事件冒泡
+          e.preventDefault(); 
+          e.stopPropagation(); 
 
           const card = e.target.closest('.card');
-          if (!card || !card.id) { // 如果找不到卡片或卡片沒有 ID，則不執行
+          if (!card || !card.id) { 
              console.error('Share button clicked on element without card ID.');
              return; 
           }
@@ -1149,16 +1201,13 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
           };
 
           if (navigator.share) {
-            // 使用 Web Share API (手機)
             try {
               await navigator.share(shareData);
             } catch (error) {
               console.error('Share failed:', error);
             }
           } else {
-            // Fallback: 複製到剪貼簿 (桌機)
             try {
-              // 複製的文字改為標題 + 內部連結
               await navigator.clipboard.writeText(`${title}\n${shareUrl}`);
               alert('分享功能僅支援手機瀏覽器。\n活動資訊 (標題+連結) 已複製到您的剪貼簿！');
             } catch (err) {
