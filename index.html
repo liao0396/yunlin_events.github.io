@@ -23,6 +23,10 @@
       --panel:#ffffff;
       --ring:#d1fae5;
       --shadow:0 10px 30px rgba(2,6,23,.08);
+      /* (新增) 連結顏色 */
+      --link-bg: #f0f9ff;
+      --link-border: #e0f2fe;
+      --link-color: #0369a1;
     }
     /* 平滑捲動 */
     html {
@@ -33,7 +37,23 @@
     /* 共用元件 */
     .wrap{position:relative;max-width:1160px;margin:0 auto;padding:18px 12px 28px;}
     .pill{font-size:12px;background:#ecfeff;color:#0f766e;padding:4px 8px;border-radius:999px;border:1px solid #a5f3fc;}
-    .link{font-size:12px;color:#0ea5e9;text-decoration:none;}
+    
+    /* (修改) 調整活動頁連結樣式 */
+    .link{
+      font-size:12px;
+      color: var(--link-color);
+      background: var(--link-bg);
+      border: 1px solid var(--link-border);
+      text-decoration:none;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: background .2s;
+    }
+    .link:hover {
+      background: var(--link-border);
+    }
+    
     .h{font-weight:700;font-size:17px;margin:2px 0 6px 0;}
     .meta{font-size:14px;color:#374151;line-height:1.5;}
     .tag{font-size:11px;padding:2px 8px;border-radius:999px;background:#f0fdf4;border:1px solid #bbf7d0;color:#065f46;margin-right:6px}
@@ -50,14 +70,37 @@
       padding:14px 16px;
       box-shadow:var(--shadow);
       display: block; /* 預設顯示 */
-      transition: opacity 0.3s ease; /* (可選) 增加隱藏動畫 */
+      transition: opacity 0.3s ease;
+      position: relative; /* (新增) 為了定位分享按鈕 */
+      padding-bottom: 40px; /* (新增) 增加底部空間給分享按鈕 */
+    }
+
+    /* (新增) 分享按鈕樣式 */
+    .share-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      background: var(--brand-50);
+      color: var(--brand);
+      border: 1px solid var(--ring);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .share-btn:hover {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+      transform: scale(1.05);
     }
 
     /* 篩選 tabs */
     .tabs-container { margin: 12px 0; }
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tabs label{user-select:none;cursor:pointer;font-size:13px;color:#065f46;border:1px solid var(--ring);background:var(--brand-50);padding:6px 10px;border-radius:999px;transition:all .2s;
-      /* (修復) 統一最小寬度並置中 */
       min-width: 42px;
       text-align: center;
       box-sizing: border-box;
@@ -169,7 +212,7 @@
     #form-status {
       font-size: 13px;
       margin-top: 10px;
-      text-align: center; /* (修復) 讓狀態訊息置中 */
+      text-align: center;
     }
     .status-success { color: #065f46; } /* 成功 (綠) */
     .status-error { color: #991b1b; }   /* 失敗 (紅) */
@@ -276,6 +319,7 @@
     <span class="tag">市集</span>
     <span class="tag">親子</span>
             </div>
+ <button class="share-btn">分享 ➦</button>
  </div>
           
          <div class="card" data-cat="展覽" data-region="北港">
@@ -290,6 +334,7 @@
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=北港文化中心" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
           <div class="card" data-cat="親子 表演" data-region="虎尾">
@@ -304,6 +349,7 @@
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林布袋戲館" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">親子</span><span class="tag">表演</span></div>
+        <button class="share-btn">分享 ➦</button>
         </div>
                  
         <div class="card" data-cat="展覽" data-region="斗六">
@@ -318,6 +364,7 @@
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=雲林縣政府文化觀光處" target="_blank">Google 地圖</a></div>
           </div>
           <div><span class="tag">展覽</span></div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="展覽" data-region="北港">
@@ -332,6 +379,7 @@
             <div><strong>地圖</strong>：<a class="link" href="https://www.google.com/maps/search/?api=1&query=北港文化中心" target="_blank">Google 地圖</a></div>
           </div>
             <div><span class="tag">展覽</span></div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="市集 親子 節慶 體驗" data-region="斗六">
@@ -351,6 +399,7 @@
               <span class="tag">節慶</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="市集 體驗 親子" data-region="虎尾">
@@ -369,6 +418,7 @@
               <span class="tag">體驗</span>
               <span class="tag">親子</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="展覽 講座 體驗" data-region="虎尾">
@@ -387,6 +437,7 @@
               <span class="tag">講座</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
           <div class="card" data-cat="節慶 市集 親子 體驗" data-region="二崙">
@@ -406,6 +457,7 @@
               <span class="tag">親子</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>      
           
         <div class="card" data-cat="市集 節慶 表演" data-region="西螺">
@@ -424,6 +476,7 @@
               <span class="tag">節慶</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>            
 
           <div class="card" data-cat="展覽 親子 表演" data-region="虎尾">
@@ -442,6 +495,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
           <div class="card" data-cat="展覽 市集 體驗" data-region="虎尾">
@@ -460,6 +514,7 @@
               <span class="tag">市集</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
           <div class="card" data-cat="節慶 市集 表演 親子 體驗" data-region="虎尾">
@@ -480,6 +535,7 @@
               <span class="tag">體驗</span>
               <span class="tag">親子</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="體驗 節慶 親子" data-region="虎尾">
@@ -498,6 +554,7 @@
               <span class="tag">節慶</span>
               <span class="tag">親子</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div> 
           
         <div class="card" data-cat="市集 美食 表演 節慶 親子 體驗" data-region="土庫">
@@ -519,6 +576,7 @@
             <span class="tag">親子</span>     
             <span class="tag">體驗</span>              
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="親子 表演" data-region="土庫">
@@ -536,6 +594,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="親子 表演" data-region="斗六">
@@ -553,6 +612,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="展覽 體驗" data-region="土庫">
@@ -570,6 +630,7 @@
               <span class="tag">展覽</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="親子 表演" data-region="斗南">
@@ -587,6 +648,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div> 
 
         <div class="card" data-cat="運動 市集 親子 體驗 美食" data-region="西螺">
@@ -607,6 +669,7 @@
               <span class="tag">體驗</span>
               <span class="tag">美食</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div> 
           
         <div class="card" data-cat="市集 美食 親子 體驗" data-region="虎尾">
@@ -626,6 +689,7 @@
               <span class="tag">親子</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div> 
 
         <div class="card" data-cat="市集 表演 親子 體驗" data-region="崙背">
@@ -645,6 +709,7 @@
               <span class="tag">親子</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div> 
           
         <div class="card" data-cat="講座" data-region="斗六">
@@ -661,6 +726,7 @@
           <div>
               <span class="tag">講座</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
          </div> 
           
         <div class="card" data-cat="講座 親子 體驗" data-region="斗南">
@@ -679,6 +745,7 @@
               <span class="tag">親子</span>   
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="表演 親子 體驗" data-region="斗六">
@@ -697,6 +764,7 @@
               <span class="tag">親子</span>   
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="節慶 市集 美食 親子 體驗 表演" data-region="四湖">
@@ -718,6 +786,7 @@
               <span class="tag">體驗</span>   
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="市集 美食 表演 運動 體驗" data-region="口湖">
@@ -738,6 +807,7 @@
               <span class="tag">運動</span>   
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南">
@@ -757,6 +827,7 @@
               <span class="tag">美食</span>
               <span class="tag">體驗</span>
            </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
             
         <div class="card" data-cat="表演 親子 節慶 體驗" data-region="水林">
@@ -776,6 +847,7 @@
               <span class="tag">節慶</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
             
         <div class="card" data-cat="市集 親子 美食 體驗" data-region="斗南">
@@ -795,6 +867,7 @@
               <span class="tag">美食</span>
               <span class="tag">體驗</span>
            </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="親子 表演" data-region="大埤">
@@ -812,6 +885,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
           
         <div class="card" data-cat="講座 表演 展覽 體驗" data-region="虎尾">
@@ -831,6 +905,7 @@
               <span class="tag">展覽</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="親子 體驗 運動" data-region="斗六"> 
@@ -849,6 +924,7 @@
               <span class="tag">體驗</span>
               <span class="tag">運動</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
         
         <div class="card" data-cat="親子 表演" data-region="古坑">
@@ -866,6 +942,7 @@
               <span class="tag">親子</span>
               <span class="tag">表演</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
 
         <div class="card" data-cat="市集 體驗 親子" data-region="斗六">
@@ -884,6 +961,7 @@
               <span class="tag">體驗</span>
               <span class="tag">親子</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
       
           <div class="card" data-cat="運動 體驗" data-region="臺西"> 
@@ -901,6 +979,7 @@
               <span class="tag">運動</span>
               <span class="tag">體驗</span>
           </div>
+        <button class="share-btn">分享 ➦</button>
         </div>
       
       
@@ -956,6 +1035,11 @@
       const allFilters = document.querySelectorAll('.tabs-input'); // 所有 radio 按鈕
       const eventCards = document.querySelectorAll('.grid[data-scope] .card');
       const resetLabel = document.getElementById('reset-filters-label');
+
+      // (新增) 動態為卡片加上 ID
+      eventCards.forEach((card, index) => {
+        card.id = `event-card-${index}`;
+      });
 
       // --- 篩選邏輯 ---
       function filterEvents() {
@@ -1024,7 +1108,7 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
         fetch(WEB_APP_URL) 
           .then(response => response.json())
           .then(data => {
-            if (data.result === 'success' && data.totalCount && data.todayCount) {
+            if (data.result === 'success' && data.totalCount !== undefined && data.todayCount !== undefined) { // 檢查屬性是否存在
               counterTodayEl.textContent = data.todayCount.toLocaleString();
               counterTotalEl.textContent = data.totalCount.toLocaleString();
             } else {
@@ -1039,6 +1123,52 @@ if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
           });
       }
       // ===== 閱覽人數計數器結束 =====
+
+      // ===== (修改) 分享按鈕邏輯 (分享內部連結) =====
+      const shareButtons = document.querySelectorAll('.share-btn');
+      shareButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault(); // 防止點擊卡片（如果卡片是連結的話）
+          e.stopPropagation(); // 停止事件冒泡
+
+          const card = e.target.closest('.card');
+          if (!card || !card.id) { // 如果找不到卡片或卡片沒有 ID，則不執行
+             console.error('Share button clicked on element without card ID.');
+             return; 
+          }
+          
+          const title = card.querySelector('.h').textContent.trim();
+          
+          // (修改) 產生指向該卡片的內部連結
+          const shareUrl = window.location.origin + window.location.pathname + '#' + card.id;
+
+          const shareData = {
+            title: title, // 標題改為活動標題
+            text: `我想跟你分享這個雲林活動： ${title}`, // 內文
+            url: shareUrl // 使用內部連結
+          };
+
+          if (navigator.share) {
+            // 使用 Web Share API (手機)
+            try {
+              await navigator.share(shareData);
+            } catch (error) {
+              console.error('Share failed:', error);
+            }
+          } else {
+            // Fallback: 複製到剪貼簿 (桌機)
+            try {
+              // 複製的文字改為標題 + 內部連結
+              await navigator.clipboard.writeText(`${title}\n${shareUrl}`);
+              alert('分享功能僅支援手機瀏覽器。\n活動資訊 (標題+連結) 已複製到您的剪貼簿！');
+            } catch (err) {
+              console.error('Clipboard copy failed:', err);
+              alert('分享功能僅支援手機瀏覽器。');
+            }
+          }
+        });
+      });
+      // ===== 分享按鈕邏輯結束 =====
 
 
       // ===== 表單提交邏輯 =====
