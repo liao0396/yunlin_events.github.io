@@ -76,7 +76,7 @@ html[data-theme="dark"] .tag {
 
 /* 修正：篩選按鈕 .tabs label (未選中) */
 html[data-theme="dark"] .tabs label {
-  color: #5eead4;
+  color: #67e8f9; /* 使用更亮的青色 */
   border-color: var(--ring);
   background: var(--brand-50);
 }
@@ -112,5 +112,5 @@ html[data-theme="dark"] .theme-select {
 }
 /* 修正：卡片內的 meta 文字（地區、時間）在深色模式下的顏色 */
 html[data-theme="dark"] .meta {
-  color: var(--muted);
+  color: #cbd5e1; /* 使用更亮的灰色 */
 }
